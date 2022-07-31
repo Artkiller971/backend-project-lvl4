@@ -1,0 +1,23 @@
+{
+  "name": "@hexlet/code",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "task manager",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Artkiller971/backend-project-lvl4.git"
+  },
+  "author": "artkiller971",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Artkiller971/backend-project-lvl4/issues"
+  },
+  "homepage": "https://github.com/Artkiller971/backend-project-lvl4#readme",
+  "dependencies": {
+    "fastify": "^4.3.0"
+  }
+}
