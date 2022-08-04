@@ -8,7 +8,7 @@
   },
   "main": "server/index.js",
   "scripts": {
-    "start": "fastify start server/index.js -l -p -P",
+    "start": "fastify start server/index.js -l -a 0.0.0.0 -P",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
