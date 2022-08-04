@@ -1,1 +1,1 @@
-web: make start --bind :$PORT --workers 1
+web: make start
