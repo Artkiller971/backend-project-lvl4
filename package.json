@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Artkiller971/backend-project-lvl4#readme",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "fastify": "^4.3.0"
   }
 }
