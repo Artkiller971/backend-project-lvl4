@@ -4,6 +4,7 @@ const mode = process.env.NODE_ENV || 'development';
 
 export default {
   mode,
+  plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
@@ -12,5 +13,4 @@ export default {
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin()],
 };
