@@ -7,8 +7,11 @@ import ru from './locales/ru.js'
 
 import addRoutes from './routes/index.js';
 import getHelpers from './helpers/index.js';
+import * as knexConfig from '../knexfile.js';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
+
+const mode = process.env.NODE_ENV || 'development';
 
 const setUpViews = (app) => {
   const helpers = getHelpers(app);

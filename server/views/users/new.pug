@@ -1,0 +1,21 @@
+extends ../layouts/layout.pug
+
+block content
+  div.container.wrapper.flex-grow-1
+    h3.display-4.fw-bold.mt-4= t('layout.application.signUp')
+    div.row.justify-content-center
+      div.col-8.col-md-4
+        form(action='/users' method='post')
+          div.form-floating.mb-3
+            input.form-control#data_firstName(name='data[firstName]' placeholder= t('views.users.new.firstName') type='text')
+            label(for='data_firstName')= t('views.users.new.firstName')
+          div.form-floating.mb-3
+            input.form-control#data_lastName(name='data[lastName]' placeholder= t('views.users.new.lastName') type='text')
+            label(for='data_lastName')= t('views.users.new.lastName')
+          div.form-floating.mb-3
+            input.form-control#data_email(name='data[email]' placeholder= t('views.users.new.email') type='text')
+            label(for='data_email')= t('views.users.new.email')
+          div.form-floating.mb-3
+            input.form-control#data_password(name='data[password]' placeholder= t('views.users.new.password') type='password')
+            label(for='data_password')= t('views.users.new.password')
+          input.btn.btn-primary(type='Submit' value= t('views.users.new.submit'))
