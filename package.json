@@ -25,6 +25,8 @@
   "homepage": "https://github.com/Artkiller971/backend-project-lvl4#readme",
   "dependencies": {
     "@popperjs/core": "^2.11.6",
+    "ajv": "^8.11.0",
+    "ajv-keywords": "^5.1.0",
     "bootstrap": "^5.1.3",
     "dotenv": "^16.0.1",
     "fastify": "^3.29.0",
