@@ -1,3 +1,5 @@
+include ../mixins/forms.pug
+
 doctype html
 html(lang="en")
   head
@@ -16,9 +18,20 @@ html(lang="en")
             li.nav-item
               a.nav-link.active(aria-current='page' href='/users')= t('layout.application.users')
           ul.navbar-nav
-            li.nav-item
-              a.nav-link.active(aria-current='page' href='/session/new')= t('layout.application.signIn')
-            li.nav-item
-              a.nav-link.active(aria-current='page' href='/users/new')= t('layout.application.signUp')
+            if isAuthenticated()
+              li.nav-item
+                form(action="/session", method="post")
+                  input(type='hidden' name='_method' value="delete")
+                  input.btn.nav-link.active(type='submit' value=t ('layout.application.signOut'))
+            else
+              li.nav-item
+                a.nav-link.active(aria-current='page' href='/session/new')= t('layout.application.signIn')
+              li.nav-item
+                a.nav-link.active(aria-current='page' href='/users/new')= t('layout.application.signUp')
     .container.wrapper.flex-grow-1
+
+      each messages, type in reply.flash() || []
+        each message in messages
+          div.alert(class=`alert-${getAlertClass(type)}`)= message
+
       block content

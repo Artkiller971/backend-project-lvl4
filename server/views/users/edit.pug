@@ -2,12 +2,13 @@ extends ../layouts/layout.pug
 
 block content
   div.container.wrapper.flex-grow-1
-    h3.display-4.fw-bold.mt-4= t('layout.application.signUp')
+    h3.display-4.fw-bold.mt-4= t('views.users.edit.title')
     div.row.justify-content-center
       div.col-8.col-md-4
-        form(action='/users' method='post')
+        form(action='/users/'+user.id method='post')
           +input(user, 'firstName', errors)(type='text')
           +input(user, 'lastName', errors)(type='text')
           +input(user, 'email', errors)(type='text')
           +input(user, 'password', errors)(type='password')
-          input.btn.btn-primary(type='Submit' value= t('layout.application.submit'))
+          input(name='_method' type='hidden' value='patch')
+          input.btn.btn-primary(type='submit' value= t('layout.application.edit'))

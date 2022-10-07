@@ -6,10 +6,6 @@ block content
     div.row.justify-content-center
       div.col-8.col-md-4
         form(action='/session' method='post')
-          div.form-floating.mb-3
-            input.form-control#data_email(name='data[email]' placeholder= t('views.users.new.email') type='text')
-            label(for='data_email')= t('views.users.new.email')
-          div.form-floating.mb-3
-            input.form-control#data_password(name='data[password]' placeholder= t('views.users.new.password') type='password')
-            label(for='data_password')= t('views.users.new.password')
-          input.btn.btn-primary(type='Submit' value= t('views.users.new.submit'))
+          +input(signInForm, 'email', errors)(type='text')
+          +input(signInForm, 'password', errors)(type='password')
+          input.btn.btn-primary(type='submit' value= t('views.session.signIn'))
