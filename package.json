@@ -10,7 +10,7 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "webpack",
-    "start": "fastify start server/plugin.js -l debug  -P -a 0.0.0.0 ",
+    "start": "fastify start server/plugin.js -l debug  -P -a 100.20.92.101 ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
