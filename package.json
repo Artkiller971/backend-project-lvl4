@@ -10,7 +10,7 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "webpack",
-    "start": "fastify start server/plugin.js -l debug  -P -a 0.0.0.0",
+    "start": "fastify start --pretty-logs --log-level=info server/plugin.js -a 0.0.0.0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -46,12 +46,16 @@
     "objection": "^3.0.1",
     "objection-unique": "^1.2.2",
     "pg": "^8.8.0",
+    "pino-pretty": "^9.1.1",
     "point-of-view": "^5.3.0",
     "pug": "^3.0.2",
     "qs": "^6.11.0",
     "sqlite3": "^5.0.11"
   },
   "devDependencies": {
+    "@jest/globals": "^29.3.1",
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.11.9",
     "css-loader": "^6.7.1",
     "eslint": "^8.21.0",
     "eslint-config-airbnb-base": "^15.0.0",
