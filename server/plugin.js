@@ -6,14 +6,15 @@ import i18next from 'i18next';
 import ru from './locales/ru.js';
 import qs from 'qs';
 
+import fastifyStatic from '@fastify/static';
+import fastifyView from '@fastify/view';
+import fastifyFormbody from '@fastify/formbody';
+import fastifySecureSession from '@fastify/secure-session';
+import fastifyPassport from '@fastify/passport';
+import fastifySensible from '@fastify/sensible';
+// import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
 import fastifyMethodOverride from 'fastify-method-override';
 import fastifyObjectionjs from 'fastify-objectionjs';
-import fastifyPassport from 'fastify-passport';
-import fastifySecureSession from 'fastify-secure-session';
-import fastifySensible from 'fastify-sensible';
-import fastifyFormbody from 'fastify-formbody';
-import pointOfView from 'point-of-view';
-import fastifyStatic from 'fastify-static';
 
 import addRoutes from './routes/index.js';
 import getHelpers from './helpers/index.js';
@@ -28,7 +29,7 @@ const mode = process.env.NODE_ENV || 'development';
 
 const setUpViews = (app) => {
   const helpers = getHelpers(app);
-  app.register(pointOfView, {
+  app.register(fastifyView, {
     engine: {
       pug: Pug,
     },
@@ -74,21 +75,22 @@ const addHooks = (app) => {
   });
 };
 
-const registerPlugins = (app) => {
-  app.register(fastifySensible);
-  app.register(fastifyFormbody, { parser: qs.parse });
-  app.register(fastifySecureSession, {
+const registerPlugins = async (app) => {
+  await app.register(fastifySensible);
+  // await app.register(fastifyReverseRoutes);
+  await app.register(fastifyFormbody, { parser: qs.parse });
+  await app.register(fastifySecureSession, {
     secret: process.env.SESSION_KEY,
     cookie: {
       path: '/',
     },
   });
-  app.register(fastifyPassport.initialize());
-  app.register(fastifyPassport.secureSession());
+  await app.register(fastifyPassport.initialize());
+  await app.register(fastifyPassport.secureSession());
   fastifyPassport.registerUserSerializer((user) => Promise.resolve(user));
   fastifyPassport.registerUserDeserializer((user) => app.objection.models.user.query().findById(user.id));
   fastifyPassport.use(new FormStrategy('form', app));
-  app.decorate('fp', fastifyPassport);
+  await app.decorate('fp', fastifyPassport);
   app.decorate('authenticate', (...args) => fastifyPassport.authenticate(
     form,
     {
@@ -97,8 +99,8 @@ const registerPlugins = (app) => {
     },
   )(...args));
 
-  app.register(fastifyMethodOverride);
-  app.register(fastifyObjectionjs, {
+  await app.register(fastifyMethodOverride);
+  await app.register(fastifyObjectionjs, {
     knexConfig: knexConfig[mode],
     models,
   });
@@ -107,7 +109,7 @@ const registerPlugins = (app) => {
 
 // eslint-disable-next-line no-unused-vars
 export default async (app, options) => {
-  registerPlugins(app);
+  await registerPlugins(app);
 
   await setUpLocalization();
   setUpViews(app);

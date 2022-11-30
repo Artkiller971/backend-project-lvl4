@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Strategy } from 'fastify-passport';
+import { Strategy } from '@fastify/passport';
 
 export default class FormStrategy extends Strategy {
   constructor(name, app) {
