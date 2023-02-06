@@ -12,7 +12,7 @@ import fastifyFormbody from '@fastify/formbody';
 import fastifySecureSession from '@fastify/secure-session';
 import fastifyPassport from '@fastify/passport';
 import fastifySensible from '@fastify/sensible';
-// import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
+import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
 import fastifyMethodOverride from 'fastify-method-override';
 import fastifyObjectionjs from 'fastify-objectionjs';
 
@@ -77,7 +77,7 @@ const addHooks = (app) => {
 
 const registerPlugins = async (app) => {
   await app.register(fastifySensible);
-  // await app.register(fastifyReverseRoutes);
+  await app.register(fastifyReverseRoutes);
   await app.register(fastifyFormbody, { parser: qs.parse });
   await app.register(fastifySecureSession, {
     secret: process.env.SESSION_KEY,

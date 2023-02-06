@@ -1,0 +1,14 @@
+{
+  "users": {
+    "new": {
+      "firstName": "Sanya",
+      "lastName": "Sergeev",
+      "email": "sanya_sergeev@gmail.com",
+      "password": "RLJvaIgPOnX5r03"
+    },
+    "existing": {
+      "email": "elbert_abshire52@gmail.com",
+      "password": "Ldoe30Jdfiwh983"
+    }
+  }
+}

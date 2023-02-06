@@ -12,3 +12,6 @@ seed:
 
 run-seed:
 	npx knex seed:run
+
+test:
+	npm test -s
