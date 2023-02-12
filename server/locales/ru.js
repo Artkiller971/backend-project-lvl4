@@ -4,12 +4,14 @@ export default {
     layout: {
       application: {
         users: 'Пользователи',
+        statuses: 'Статусы',
         signIn: 'Вход',
         signUp: 'Регистрация',
         signOut: 'Выйти',
         edit: 'Изменить',
         delete: 'Удалить',
         submit: 'Сохранить',
+        createStatus: 'Создание статуса',
       }
     },
     flash: {
@@ -36,6 +38,20 @@ export default {
           success: 'Пользователь успешно удален'
         }
       },
+      statuses: {
+        create: {
+          error: 'Не удалось создать статус',
+          success: 'Статус успешно создан',
+        },
+        edit: {
+          error: 'Ошбика при редактировании статуса',
+          success: 'Статус успешно отредактирован'
+        },
+        delete: {
+          error: 'Ошибка при удалении статуса',
+          success: 'Статус успешно удален'
+        }
+      },
       authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
     },
     views: {
@@ -60,6 +76,13 @@ export default {
       },
       session: {
         signIn: 'Войти',
+      },
+      statuses: {
+        title: 'Статусы',
+        name: 'Наименование',
+        createdAt: 'Дата создания',
+        actions: 'Действия',
+        createStatus: 'Создать статус',
       }
     }
   },

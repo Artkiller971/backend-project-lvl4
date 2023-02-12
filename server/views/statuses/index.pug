@@ -1,0 +1,22 @@
+extends ../layouts/layout.pug
+
+block content
+  h1.display-4.fw-bold.mt-4= t('views.statuses.title')
+  a.btn.btn-primary(href='/statuses/new')= t('views.statuses.createStatus')
+  table.table.table-striped.mt-5.bg-white.table-borderless
+    thead
+      tr
+        th= t('views.statuses.name')
+        th= t('views.statuses.createdAt')
+        th= t('views.statuses.actions')
+    tbody
+      each status in statuses
+        tr
+          td #{status.name}
+          td= formatDate(status.createdAt)
+          td
+            div.d-flex.flex-wrap
+              a.btn.btn-primary.me-1(href='/statuses/'+ status.id +'/edit')= t('layout.application.edit')
+              form(action='/statuses/' + status.id method='post')
+                input(name='_method' type='hidden' value='delete')
+                input.btn.btn-danger(type='submit' value= t('layout.application.delete'))

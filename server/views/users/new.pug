@@ -6,8 +6,8 @@ block content
     div.row.justify-content-center
       div.col-8.col-md-4
         form(action='/users' method='post')
-          +input(user, 'firstName', errors)(type='text')
-          +input(user, 'lastName', errors)(type='text')
-          +input(user, 'email', errors)(type='text')
-          +input(user, 'password', errors)(type='password')
+          +input(user, 'users', 'firstName', errors)(type='text')
+          +input(user, 'users', 'lastName', errors)(type='text')
+          +input(user, 'users', 'email', errors)(type='text')
+          +input(user, 'users', 'password', errors)(type='password')
           input.btn.btn-primary(type='Submit' value= t('layout.application.submit'))

@@ -6,6 +6,6 @@ block content
     div.row.justify-content-center
       div.col-8.col-md-4
         form(action='/session' method='post')
-          +input(signInForm, 'email', errors)(type='text')
-          +input(signInForm, 'password', errors)(type='password')
+          +input(signInForm, 'users', 'email', errors)(type='text')
+          +input(signInForm, 'users', 'password', errors)(type='password')
           input.btn.btn-primary(type='submit' value= t('views.session.signIn'))

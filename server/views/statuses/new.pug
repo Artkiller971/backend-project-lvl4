@@ -1,0 +1,7 @@
+extends ../layouts/layout.pug
+
+block content
+  h1.display-4.fw-bold.mt-4= t('layout.application.createStatus')
+  form(action='/statuses', method='post')
+    +input(status, 'statuses', 'name', errors)(type='text')
+    input.btn.btn-primary(type='Submit', value= t('layout.application.submit'))

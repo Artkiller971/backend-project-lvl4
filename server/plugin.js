@@ -91,8 +91,8 @@ const registerPlugins = async (app) => {
   fastifyPassport.registerUserDeserializer((user) => app.objection.models.user.query().findById(user.id));
   fastifyPassport.use(new FormStrategy('form', app));
   await app.decorate('fp', fastifyPassport);
-  app.decorate('authenticate', (...args) => fastifyPassport.authenticate(
-    form,
+  await app.decorate('authenticate', (...args) => fastifyPassport.authenticate(
+    'form',
     {
       failureRedirect: '/',
       failureFlash: i18next.t('flash.authError'),

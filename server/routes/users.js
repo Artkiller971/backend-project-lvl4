@@ -1,4 +1,4 @@
-import i18next from "i18next";
+import i18next from 'i18next';
 
 export default (app) => {
   app
@@ -11,11 +11,7 @@ export default (app) => {
       const user = new app.objection.models.user();
       reply.render('users/new', { user });
     })
-    .get('/users/:id/edit', async (req, reply) => {
-      if (!req.user) {
-        req.flash('failure', i18next.t('flash.authError'));
-        return reply.redirect('/');
-      }
+    .get('/users/:id/edit', { preValidation: app.authenticate } ,async (req, reply) => {
 
       const id = parseInt(req.params.id);
 
@@ -25,12 +21,9 @@ export default (app) => {
       }
       const userToEdit = await app.objection.models.user.query().findById(id);
       reply.render('users/edit', { user: userToEdit });
+      return reply;
     })
-    .patch('/users/:id', async (req, reply) => {
-      if (!req.user) {
-        req.flash('failure', i18next.t('flash.authError'));
-        return reply.redirect('/');
-      }
+    .patch('/users/:id', { preValidation: app.authenticate } ,async (req, reply) => {
       const id = parseInt(req.params.id)
       const user = new app.objection.models.user();
       user.$set(req.body.data);
@@ -64,11 +57,7 @@ export default (app) => {
 
       return reply;
     })
-    .delete('/users/:id', async (req, reply) => {
-      if (!req.user) {
-        req.flash('failure', i18next.t('flash.authError'));
-        return reply.redirect('/');
-      }
+    .delete('/users/:id', { preValidation: app.authenticate }, async (req, reply) => {
 
       const id = parseInt(req.params.id);
 

@@ -1,7 +1,7 @@
 - const getInputName = (property) => `data[${property}]`
 - const getInputId = (property) => `data_${property}`
 
-mixin input(entity, propertyName, errors = {})
+mixin input(entity, entityName, propertyName, errors = {})
   - propertyErrors = _.get(errors, propertyName)
   - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
   - inputId = getInputId(propertyName)
@@ -10,11 +10,11 @@ mixin input(entity, propertyName, errors = {})
       id= inputId
       name= getInputName(propertyName)
       class= classLine
-      placeholder= t('views.users.'+propertyName)
+      placeholder= t('views.'+entityName+'.'+propertyName)
       value= _.get(entity, propertyName, '')
     )&attributes(attributes)
     label(
       for= inputId
-    )= t('views.users.'+propertyName)
+    )= t('views.'+entityName+'.'+propertyName)
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message, keyword }) => keyword == 'pattern' ? 'Must be an email format': message).join('. ')
