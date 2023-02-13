@@ -10,5 +10,13 @@
       "email": "elbert_abshire52@gmail.com",
       "password": "Ldoe30Jdfiwh983"
     }
+  },
+  "statuses": {
+    "new": {
+      "name": "notExsitingStatus"
+    },
+    "existing": {
+      "name": "ready"
+    }
   }
 }

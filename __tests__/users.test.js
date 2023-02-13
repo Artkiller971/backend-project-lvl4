@@ -63,13 +63,17 @@ describe('test users CRUD', () => {
       ..._.omit(params, 'password'),
       passwordDigest: encrypt(params.password),
     };
-    const user = await models.user.query().findOne({ email: params.email });
+    const user = await models.user.query().findOne({
+      email: params.email
+    });
     expect(user).toMatchObject(expected);
   });
 
   it('update', async () => {
     const cookie = await signIn(app, testData.users.existing);
-    const { id } = await models.user.query().findOne({ email: testData.users.existing.email});
+    const { id } = await models.user.query().findOne({
+      email: testData.users.existing.email
+    });
     const params = testData.users.new;
 
     const updateResponse = await app.inject({
@@ -93,7 +97,9 @@ describe('test users CRUD', () => {
 
   it('delete', async () => {
     const cookie = await signIn(app, testData.users.existing);
-    const { id } = await models.user.query().findOne({ email: testData.users.existing.email });
+    const { id } = await models.user.query().findOne({
+      email: testData.users.existing.email
+    });
 
     const deleteResponse = await app.inject({
       method: 'DELETE',
