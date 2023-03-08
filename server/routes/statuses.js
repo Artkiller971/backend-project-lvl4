@@ -28,7 +28,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.statuses.create.success'));
         reply.redirect('/statuses');
       } catch ({ data }) {
-        req.flash('error', i18.next.t('flash.statuses.create.error'));
+        req.flash('error', i18next.t('flash.statuses.create.error'));
         reply.render('statuses/new', { status, errors: data});
       }
 
@@ -58,12 +58,22 @@ export default (app) => {
 
       try {
         const statusToDelete = await app.objection.models.taskStatus.query().findById(id);
-        await statusToDelete.$query().delete();
-        req.flash('info', i18next.t('flash.statuses.delete.success'));
-        reply.redirect('/statuses');
+        const tasksWithCurrentStatus = await app.objection.models.task
+          .query()
+          .where('statusId', id);
+        if (tasksWithCurrentStatus.length > 0) {
+          req.flash('error', i18next.t('flash.statuses.delete.existError'));
+          reply.redirect('/statuses');
+        } else {
+          await statusToDelete.$query().delete();
+          req.flash('info', i18next.t('flash.statuses.delete.success'));
+          reply.redirect('/statuses');
+        }
       } catch ({ data }) {
         req.flash('error', i18next.t('flash.statuses.delete.error'));
         reply.render('statuses/index', { errors: data })
       }
+
+      return reply;
     })
 }

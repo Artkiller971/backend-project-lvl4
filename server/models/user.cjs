@@ -31,4 +31,32 @@ module.exports = class User extends unique(BaseModel) {
   verifyPassword(password) {
     return encrypt(password) === this.passwordDigest;
   }
+
+  get name() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  static get relationalMappings() {
+
+    const Task = require('./task.cjs')
+
+    return {
+      createdTasks: {
+        relation: BaseModel.HasManyRelation,
+        modelClass: Task,
+        join: {
+          from: 'users.id',
+          to: 'tasks.creatorId',
+        }
+      },
+      assignedTasks: {
+        relation: BaseModel.HasManyRelation,
+        modelClass: Task,
+        join: {
+          from: 'users.id',
+          to: 'tasks.executorId',
+        }
+      }
+    }
+  }
 }

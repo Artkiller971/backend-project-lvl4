@@ -18,3 +18,41 @@ mixin input(entity, entityName, propertyName, errors = {})
     )= t('views.'+entityName+'.'+propertyName)
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message, keyword }) => keyword == 'pattern' ? 'Must be an email format': message).join('. ')
+
+mixin select(entity, entityName, propertyName, collection, errors = {})
+  - propertyErrors = _.get(errors, propertyName)
+  - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
+  - inputId = getInputId(propertyName)
+  .mb-3
+    label(
+      for= inputId
+    )= t('views.'+entityName+'.'+propertyName)
+    select(
+      id= inputId
+      name= getInputName(propertyName)
+      class= classLine
+      value = _.get(entity, propertyName, '')
+    )&attributes(attributes)
+      option
+      each item in collection
+        - const selectedOption = item.id === _.get(entity, propertyName);
+          option(value=item.id selected=selectedOption)= item.name
+    if !_.isEmpty(propertyErrors)
+      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+
+mixin textarea(entity, entityName, propertyName, collection, errors = {})
+  - propertyErrors = _.get(errors, propertyName)
+  - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
+  - inputId = getInputId(propertyName)
+  .mb-3
+    label(
+      for= inputId
+    )= t('views.'+entityName+'.'+propertyName)
+    textarea(
+      id= inputId
+      name= getInputName(propertyName)
+      class= classLine
+      rows= 3
+    )&attributes(attributes)= _.get(entity, propertyName, '')
+    if !_.isEmpty(propertyErrors)
+      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')

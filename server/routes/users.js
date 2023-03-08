@@ -12,7 +12,6 @@ export default (app) => {
       reply.render('users/new', { user });
     })
     .get('/users/:id/edit', { preValidation: app.authenticate } ,async (req, reply) => {
-
       const id = parseInt(req.params.id);
 
       if(req.user.id !== id) {
@@ -36,7 +35,7 @@ export default (app) => {
         reply.redirect('/users');
       } catch ({ data }) { // err.data
         req.flash('error', i18next.t('flash.users.edit.error'));
-        reply.render('users/edit', { user, errors: data})
+        reply.render('users/edit', { user, errors: data })
       };
 
       return reply;
@@ -63,18 +62,30 @@ export default (app) => {
 
       if(req.user.id !== id) {
         req.flash('error', i18next.t('flash.users.delete.error'));
-        return reply.redirect('/');
+        return reply.redirect('/users');
       }
 
       try {
         const userToDelete = await app.objection.models.user.query().findById(id);
+        const tasksWithCurrentUser = await app.objection.models.task
+          .query()
+          .where('creatorId', id)
+          .orWhere('executorId', id);
+        if (tasksWithCurrentUser.length > 0) {
+          req.flash('error', i18next.t('flash.users.delete.existsError'));
+          reply.redirect('/users');
+        } else {
         await userToDelete.$query().delete();
         req.logOut();
         req.flash('info', i18next.t('flash.users.delete.success'));
         reply.redirect('/users');
-      } catch ( { data }) {
+        }
+      } catch (error) {
+        const users = await app.objection.models.user.query();
         req.flash('error', i18next.t('flash.users.delete.error'));
-        reply.render('users/index', { user, errors: data})
+        reply.render('users/index', {users, errors: error.data});
       }
+
+      return reply;
     })
 };

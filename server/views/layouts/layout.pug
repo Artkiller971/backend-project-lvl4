@@ -19,7 +19,11 @@ html(lang="en")
               a.nav-link.active(aria-current='page' href='/users')= t('layout.application.users')
             if isAuthenticated()
               li.nav-item
+                a.nav-link(aria-current='page' href='/tasks')= t('layout.application.tasks')
+              li.nav-item
                 a.nav-link(aria-current='page' href='/statuses')= t('layout.application.statuses')
+              li.nav-item
+                a.nav-link(aria-current='page' href='/labels')= t('layout.application.labels')
               li.nav-item
                 form(action="/session", method="post")
                   input(type='hidden' name='_method' value="delete")

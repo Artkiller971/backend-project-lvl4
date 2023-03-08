@@ -1,0 +1,7 @@
+extends ../layouts/layout.pug
+
+block content
+  h1.display-4.fw-bold.mt-4= t('layout.application.createLabel')
+  form(action='/labels', method='post')
+    +input(label, 'labels', 'name', errors)(type='text')
+    input.btn.btn-primary(type='Submit', value= t('layout.application.submit'))

@@ -3,9 +3,9 @@ const objectionUnique = require('objection-unique');
 
 const unique = objectionUnique({ fields: ['name'] });
 
-module.exports = class TaskStatus extends unique(BaseModel) {
+module.exports = class Label extends unique(BaseModel) {
   static get tableName() {
-    return 'statuses';
+    return 'labels';
   }
 
   static get jsonSchema() {
@@ -13,9 +13,9 @@ module.exports = class TaskStatus extends unique(BaseModel) {
       type: 'object',
       required: ['name'],
       properties: {
-        id: { type: 'integer'},
-        name: { type: 'string', minLength: 1 },
-      },
+        id: { type : 'integer' },
+        name: { type: 'string', minLength: 1},
+      }
     }
   }
 
@@ -25,13 +25,18 @@ module.exports = class TaskStatus extends unique(BaseModel) {
 
     return {
       tasks: {
-        relation: BaseModel.HasManyRelation,
+        relation: BaseModel.ManyToManyRelation,
         modelClass: Task,
         join: {
-          from: 'statuses.id',
-          to: 'tasks.statusId',
+          from: 'labels.id',
+          through: {
+            from: 'labels_tasks.labelId',
+            to: 'labels_tasks.taskId',
+          },
+          to: 'tasks.id'
         }
       }
     }
+
   }
 }
