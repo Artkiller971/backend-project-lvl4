@@ -16,7 +16,7 @@ block content
           td= formatDate(label.createdAt)
           td
             div.d-flex.flex-wrap
-              a.btn.btn-primary.me-1(href='/label/'+ label.id +'/edit')= t('layout.application.edit')
+              a.btn.btn-primary.me-1(href='/labels/'+ label.id +'/edit')= t('layout.application.edit')
               form(action='/labels/' + label.id method='post')
                 input(name='_method' type='hidden' value='delete')
                 input.btn.btn-danger(type='submit' value= t('layout.application.delete'))

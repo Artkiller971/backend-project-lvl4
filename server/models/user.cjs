@@ -36,7 +36,7 @@ module.exports = class User extends unique(BaseModel) {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  static get relationalMappings() {
+  static get relationMappings() {
 
     const Task = require('./task.cjs')
 

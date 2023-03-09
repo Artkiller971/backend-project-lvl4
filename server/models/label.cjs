@@ -19,7 +19,7 @@ module.exports = class Label extends unique(BaseModel) {
     }
   }
 
-  static get relationalMappings() {
+  static get relationMappings() {
 
     const Task = require('./task.cjs')
 
@@ -30,8 +30,8 @@ module.exports = class Label extends unique(BaseModel) {
         join: {
           from: 'labels.id',
           through: {
-            from: 'labels_tasks.labelId',
-            to: 'labels_tasks.taskId',
+            from: 'tasks_labels.labelId',
+            to: 'tasks_labels.taskId',
           },
           to: 'tasks.id'
         }

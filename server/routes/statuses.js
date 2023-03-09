@@ -58,9 +58,7 @@ export default (app) => {
 
       try {
         const statusToDelete = await app.objection.models.taskStatus.query().findById(id);
-        const tasksWithCurrentStatus = await app.objection.models.task
-          .query()
-          .where('statusId', id);
+        const tasksWithCurrentStatus = await statusToDelete.$relatedQuery('tasks');
         if (tasksWithCurrentStatus.length > 0) {
           req.flash('error', i18next.t('flash.statuses.delete.existError'));
           reply.redirect('/statuses');

@@ -12,6 +12,10 @@ export default (app) => {
     })
     .get('/tasks/:id', { preValidation: app.authenticate }, async (req, reply) => {
       const id = parseInt(req.params.id);
+
+      const rlt = await app.objection.models.task.relatedQuery('status').for(id);
+      console.log(rlt);
+
       const task = await app.objection.models.task
         .query()
         .findById(id)

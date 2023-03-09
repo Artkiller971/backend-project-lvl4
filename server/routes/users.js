@@ -11,7 +11,7 @@ export default (app) => {
       const user = new app.objection.models.user();
       reply.render('users/new', { user });
     })
-    .get('/users/:id/edit', { preValidation: app.authenticate } ,async (req, reply) => {
+    .get('/users/:id/edit', { preValidation: app.authenticate }, async (req, reply) => {
       const id = parseInt(req.params.id);
 
       if(req.user.id !== id) {
@@ -22,7 +22,7 @@ export default (app) => {
       reply.render('users/edit', { user: userToEdit });
       return reply;
     })
-    .patch('/users/:id', { preValidation: app.authenticate } ,async (req, reply) => {
+    .patch('/users/:id', { preValidation: app.authenticate }, async (req, reply) => {
       const id = parseInt(req.params.id)
       const user = new app.objection.models.user();
       user.$set(req.body.data);
@@ -67,11 +67,9 @@ export default (app) => {
 
       try {
         const userToDelete = await app.objection.models.user.query().findById(id);
-        const tasksWithCurrentUser = await app.objection.models.task
-          .query()
-          .where('creatorId', id)
-          .orWhere('executorId', id);
-        if (tasksWithCurrentUser.length > 0) {
+        const createdTasks = await userToDelete.$relatedQuery('createdTasks');
+        const assignedTasks = await userToDelete.$relatedQuery('assignedTasks');
+        if (createdTasks.length > 0 || assignedTasks.length > 0) {
           req.flash('error', i18next.t('flash.users.delete.existsError'));
           reply.redirect('/users');
         } else {
@@ -87,5 +85,5 @@ export default (app) => {
       }
 
       return reply;
-    })
+    });
 };

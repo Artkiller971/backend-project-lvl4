@@ -1,0 +1,8 @@
+extends ../layouts/layout.pug
+
+block content
+  h1.display-4.fw-bold.mt-4= t('views.labels.edit.title')
+  form(action='/labels/'+label.id, method='post')
+    +input(label, 'labels', 'name', errors)(type='text')
+    input(name='_method' type='hidden' value='patch')
+    input.btn.btn-primary(type='Submit', value= t('layout.application.edit'))
