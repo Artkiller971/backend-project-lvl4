@@ -8,5 +8,6 @@ block content
       +textarea(task, 'tasks', 'description', errors)(type='text')
       +select(task, 'tasks', 'statusId', statuses, errors)
       +select(task, 'tasks', 'executorId', users, errors)
+      +select(task, 'tasks', 'labels', labels, errors)(multiple='multiple')
       input(name='_method' type='hidden' value='patch')
       input.btn.btn-primary(type='submit' value=t('layout.application.edit'))

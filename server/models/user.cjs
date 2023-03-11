@@ -3,7 +3,7 @@ const objectionUnique = require('objection-unique');
 const encrypt = require('../lib/secure.cjs');
 
 const unique = objectionUnique({ fields: ['email'] });
-const regExpForEmail = '^([a-zA-Z0-9_]+@)([a-zA-Z0-9_]+.)([a-zA-Z0-9_])+$';
+const regExpForEmail = "^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*$";
 
 module.exports = class User extends unique(BaseModel) {
   static get tableName() {

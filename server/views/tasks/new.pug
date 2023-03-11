@@ -8,4 +8,5 @@ block content
       +textarea(task, 'tasks', 'description', errors)(type='text')
       +select(task, 'tasks', 'statusId', statuses, errors)
       +select(task, 'tasks', 'executorId', users, errors)
+      +select(task, 'tasks', 'labels', labels, errors)(multiple='multiple')
       input.btn.btn-primary(type='Submit' value= t('layout.application.submit'))

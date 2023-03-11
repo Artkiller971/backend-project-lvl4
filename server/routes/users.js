@@ -51,7 +51,7 @@ export default (app) => {
         reply.redirect('/users');
       } catch ({ data }) {
         req.flash('error', i18next.t('flash.users.create.error'));
-        reply.render('users/new', { user, errors: data})
+        reply.render('users/new', { user, errors: data })
       }
 
       return reply;
