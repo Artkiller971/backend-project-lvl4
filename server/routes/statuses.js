@@ -56,22 +56,21 @@ export default (app) => {
     .delete('/statuses/:id', { preValidation: app.authenticate }, async(req, reply) => {
       const id = parseInt(req.params.id);
 
+      const statusToDelete = await app.objection.models.taskStatus.query().findById(id);
+      const tasksWithCurrentStatus = await statusToDelete.$relatedQuery('tasks');
+      if (tasksWithCurrentStatus.length > 0) {
+        req.flash('error', i18next.t('flash.statuses.delete.existError'));
+        reply.redirect('/statuses');
+        return reply;
+      }
       try {
-        const statusToDelete = await app.objection.models.taskStatus.query().findById(id);
-        const tasksWithCurrentStatus = await statusToDelete.$relatedQuery('tasks');
-        if (tasksWithCurrentStatus.length > 0) {
-          req.flash('error', i18next.t('flash.statuses.delete.existError'));
-          reply.redirect('/statuses');
-        } else {
-          await statusToDelete.$query().delete();
-          req.flash('info', i18next.t('flash.statuses.delete.success'));
-          reply.redirect('/statuses');
-        }
+        await statusToDelete.$query().delete();
+        req.flash('info', i18next.t('flash.statuses.delete.success'));
       } catch ({ data }) {
         req.flash('error', i18next.t('flash.statuses.delete.error'));
-        reply.render('statuses/index', { errors: data })
       }
 
+      reply.redirect('/statuses');
       return reply;
     })
 }

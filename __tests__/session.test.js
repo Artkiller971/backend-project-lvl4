@@ -39,7 +39,7 @@ describe('test session', () => {
       method: 'POST',
       url: '/session',
       payload: {
-        data: testData.users.existing,
+        data: testData.users.existing1,
       },
     });
 

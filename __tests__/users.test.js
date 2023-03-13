@@ -70,9 +70,9 @@ describe('test users CRUD', () => {
   });
 
   it('update', async () => {
-    const cookie = await signIn(app, testData.users.existing);
+    const cookie = await signIn(app, testData.users.existing1);
     const { id } = await models.user.query().findOne({
-      email: testData.users.existing.email
+      email: testData.users.existing1.email
     });
     const params = testData.users.new;
 
@@ -96,20 +96,39 @@ describe('test users CRUD', () => {
   });
 
   it('delete', async () => {
-    const cookie = await signIn(app, testData.users.existing);
-    const { id } = await models.user.query().findOne({
-      email: testData.users.existing.email
+    const cookie1 = await signIn(app, testData.users.existing1);
+    const user1 = await models.user.query().findOne({
+      email: testData.users.existing1.email
     });
 
-    const deleteResponse = await app.inject({
+    const id1 = user1.id;
+
+    const deleteResponse1 = await app.inject({
       method: 'DELETE',
-      url: `/users/${id}`,
-      cookies: cookie,
+      url: `/users/${id1}`,
+      cookies: cookie1,
     });
 
-    expect(deleteResponse.statusCode).toBe(302);
-    const deletedUser = await models.user.query().findById(id);
-    expect(deletedUser).toBeUndefined();
+    expect(deleteResponse1.statusCode).toBe(302);
+    const deletedUser1 = await models.user.query().findById(id1);
+    expect(deletedUser1).not.toBeUndefined();
+
+    const cookie2 = await signIn(app, testData.users.existing2);
+    const user2 = await models.user.query().findOne({
+      email: testData.users.existing2.email
+    });
+
+    const id2 = user2.id;
+
+    const deleteResponse2 = await app.inject({
+      method: 'DELETE',
+      url: `/users/${id2}`,
+      cookies: cookie2,
+    });
+
+    expect(deleteResponse2.statusCode).toBe(302);
+    const deletedUser2 = await models.user.query().findById(id2);
+    expect(deletedUser2).toBeUndefined();
   })
 
   afterEach(async () => {

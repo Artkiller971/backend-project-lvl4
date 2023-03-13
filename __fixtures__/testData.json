@@ -6,17 +6,47 @@
       "email": "sanya_sergeev@gmail.com",
       "password": "RLJvaIgPOnX5r03"
     },
-    "existing": {
+    "existing1": {
       "email": "elbert_abshire52@gmail.com",
       "password": "Ldoe30Jdfiwh983"
+    },
+    "existing2": {
+      "email": "nona_murray@yahoo.com",
+      "password": "O6AvLIQL1cbzrre"
     }
   },
   "statuses": {
     "new": {
       "name": "notExsitingStatus"
     },
-    "existing": {
+    "existing1": {
       "name": "ready"
+    },
+    "existing2": {
+      "name": "ready2"
+    }
+  },
+  "tasks": {
+    "new": {
+      "name": "newTask",
+      "description": "Desc for new Task",
+      "statusId": 1,
+      "executorId": 1,
+      "labels": [0, 1]
+    },
+    "existing": {
+      "name": "existingTask"
+    }
+  },
+  "labels": {
+    "new": {
+      "name": "newLabel"
+    },
+    "existing1": {
+      "name": "label 1"
+    },
+    "existing2": {
+      "name": "label 2"
     }
   }
 }
