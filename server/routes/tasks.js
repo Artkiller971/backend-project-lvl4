@@ -3,11 +3,21 @@ import i18next from 'i18next';
 export default (app) => {
   app
     .get('/tasks', { preValidation: app.authenticate }, async (req, reply) => {
+      const filter = req.query;
+      filter.status = filter.status ? Number(filter.status) : null
+      filter.executor = filter.executor ? Number(filter.executor) : null
+      filter.label = filter.label ? Number(filter.label) : null
+      filter.creator = filter.isCreatorUser ? Number(req.user.id) : null
       const tasks = await app.objection.models.task.query()
-        .withGraphJoined('[creator, executor, status]');
+        .withGraphJoined('[creator, executor, status, labels]')
+        .modify('filterStatus', filter.status)
+        .modify('filterExecutor', filter.executor)
+        .modify('filterLabel', filter.label)
+        .modify('filterCreator', filter.creator)
       const users = await app.objection.models.user.query();
       const statuses = await app.objection.models.taskStatus.query();
-      reply.render('tasks/index', { tasks, users, statuses });
+      const labels = await app.objection.models.label.query();
+      reply.render('tasks/index', { tasks, users, statuses, labels, filter });
       return reply;
     })
     .get('/tasks/:id', { preValidation: app.authenticate }, async (req, reply) => {
@@ -17,8 +27,6 @@ export default (app) => {
         .query()
         .findById(id)
         .withGraphJoined('[creator, executor, status, labels]');
-
-      console.log(task);
         
       reply.render('tasks/task', { task });
       return reply;

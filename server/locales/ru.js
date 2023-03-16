@@ -5,9 +5,12 @@ export default {
       application: {
         actions: 'Действия',
         users: 'Пользователи',
+        executor: 'Исполнитель',
         statuses: 'Статусы',
+        status: 'Статус',
         tasks: 'Задачи',
         labels: 'Метки',
+        label: 'Метка',
         signIn: 'Вход',
         signUp: 'Регистрация',
         signOut: 'Выйти',
@@ -18,6 +21,7 @@ export default {
         createTask: 'Создание задачи',
         createLabel: 'Создание метки',
         createdAt: 'Дата создания',
+        selectYourTasks: 'Только мои задачи'
       }
     },
     flash: {
@@ -128,7 +132,8 @@ export default {
         statusId: 'Статус',
         creator: 'Автор',
         executorId: 'Исполнитель',
-        noTasks: 'Задач нет'
+        noTasks: 'Задач нет',
+        showTasks: 'Показать задачи'
       },
       labels: {
         edit: {

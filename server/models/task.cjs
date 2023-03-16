@@ -64,4 +64,29 @@ module.exports = class Task extends BaseModel {
       }
     }
   }
+
+  static get modifiers() {
+    return {
+      filterStatus(query, statusId) {
+        if (statusId !== null) {
+          query.where({ statusId });
+        }
+      },
+      filterExecutor(query, executorId) {
+        if (executorId !== null) {
+          query.where({ executorId });
+        }
+      },
+      filterLabel(query, labelId) {
+        if (labelId !== null) {
+          query.where({ labelId });
+        }
+      },
+      filterCreator(query, creatorId) {
+        if (creatorId !== null) {
+          query.where({ creatorId });
+        }
+      },
+    }
+  }
 }

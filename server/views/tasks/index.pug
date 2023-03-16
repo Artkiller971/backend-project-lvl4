@@ -2,7 +2,39 @@ extends ../layouts/layout.pug
 
 block content
   h1.display-4.fw-bold.mt-4= t('views.tasks.title')
-  a.btn.btn-primary(href='/tasks/new')= t('views.tasks.createTask')
+  a.btn.btn-primary.mb-5(href='/tasks/new')= t('views.tasks.createTask')
+  .card.shadow-sm
+    .card-body.p-4
+      form(action='/tasks' method='GET')
+        .row
+          .col-12.col-md
+            .input-group.mb-3
+              label.input-group-text(for='data_status')= t('layout.application.status')
+              select.form-select(id='data_status' name='status')
+                option
+                each status in statuses
+                  - const currentStatus = status.id === filter?.status;
+                  option(value=status.id selected=currentStatus ? true : false)= status.name
+          .col-12.col-md
+            .input-group.mb-3
+              label.input-group-text(for='data_executor')= t('layout.application.executor')
+              select.form-select(id='data_executor' name='executor')
+                option
+                each user in users
+                  - const currentUser = user.id === filter?.user;
+                  option(value=user.id selected=currentUser ? true : false)= user.name
+          .col-12.col-md
+            .input-group.mb-3
+              label.input-group-text(for='data_label')= t('layout.application.label')
+              select.form-select(id='data_label' name='label')
+                option
+                each label in labels
+                  - const currentLabel = label.id === filter?.label;
+                  option(value=label.id selected=currentLabel ? true : false)= label.name
+        .mb-3.form-check
+          input.form-check-input(id='data_isCreatorUser' type='checkbox' name='isCreatorUser')
+          label.form-check-label(for='data_isCreatorUser')= t('layout.application.selectYourTasks')
+        input.btn.btn-primary(type='Submit' value= t('views.tasks.showTasks'))
   if tasks.length > 0
     table.table.table-striped.mt-5.bg-white.table-borderless
       thead
