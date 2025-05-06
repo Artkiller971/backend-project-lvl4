@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+  head
+    title Task Manager
+    script(src=assetPath('main.js'))
+    link(href=assetPath('main.css') rel="stylesheet")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+  body.d-flex.flex-column.min-vh-100
+    nav.navbar.navbar-expand-lg.mb-3
+      .container-fluid
+        a.navbar-brand(href='/')= 'Task Manager'
+        button.navbar-toggler(data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent")
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse(id="navbarToggleExternalContent")
+          .container-fluid
+            ul.navbar-nav.mr-auto
+              li.nav-item
+                a.nav-link(href='/users')= 'Users'
+              li.nav-item.align-items-center.d-flex.ms-auto
+                p.mb-1= 'Dark Theme'
+                .ms-2.form-check.form-switch
+                  input#themingSwitcher.form-check-input(type='checkbox' role='switch')
+    .container.wrapper.flex-grow-1
+
+      h1.my-4
+        block header
+      block content
+
+    footer
+      .container.my-5.pt-4.border-top
+        a(target="_blank" href="https://github.com/Artkiller971") Github
+
