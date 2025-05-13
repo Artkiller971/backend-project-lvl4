@@ -24,7 +24,7 @@ export const test = {
   migrations,
 };
 
-export const production = {
+export const pg = {
   client: 'pg',
   connection: process.env.DATABASE_URL,
   useNullAsDefault: true,
