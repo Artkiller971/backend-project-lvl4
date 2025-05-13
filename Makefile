@@ -10,6 +10,9 @@ start:
 migrate:
 	npx knex migrate:latest
 
+migrate-prod:
+	NODE_ENV=production npx knex migrate:latest
+
 lint:
 	npx eslint .
 
