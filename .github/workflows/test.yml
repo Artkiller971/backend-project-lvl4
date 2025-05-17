@@ -4,6 +4,8 @@ on: push
 jobs:
   build: # имя взято для примера
     runs-on: ubuntu-latest
+    env:
+        SESSION_KEY: 'An example of a key with 32 byte'
 
     steps:
       # Клонируем репозиторий

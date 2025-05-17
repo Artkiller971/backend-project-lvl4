@@ -1,3 +1,7 @@
+import {
+  describe, beforeAll, it, expect,
+} from '@jest/globals';
+
 import _ from 'lodash';
 import fastify from 'fastify';
 
