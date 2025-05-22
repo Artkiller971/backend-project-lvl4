@@ -1,25 +1,30 @@
 extends ../layouts/application.pug
 
+block header
+  = t('views.users.usersList')
+
 block content
-  table.table.table-striped
-    thead
-      tr
-        th= t('views.users.id')
-        th= t('views.users.firstName')
-        th= t('views.users.lastName')
-        th= t('views.users.email')
-        th= t('views.users.createdAt')
-    tbody
-      each user in users
+  .container.wrapper.flex-grow-1
+    a.btn.btn-primary(href=route('newUser'))= t('views.users.createUser')
+    table.table.table-striped
+      thead
         tr
-          td= user.id
-          td= user.firstName 
-          td= user.lastName
-          td= user.email
-          td= formatDate(user.createdAt)
-          td
-            .d-flex.flex-wrap
-              a.btn.btn-primary.me-1(href=route('editUser', { id: user.id }))= t('views.users.edit.submit')
-              form(action=route('userDelete', { id: user.id }), method = 'post')
-                input(name='_method', type='hidden', value='delete')
-                input.btn.btn-danger(type='submit', value=t('views.users.delete'))
+          th= t('views.users.id')
+          th= t('views.users.firstName')
+          th= t('views.users.lastName')
+          th= t('views.users.email')
+          th= t('views.users.createdAt')
+      tbody
+        each user in users
+          tr
+            td= user.id
+            td= user.firstName 
+            td= user.lastName
+            td= user.email
+            td= formatDate(user.createdAt)
+            td
+              .d-flex.flex-wrap
+                a.btn.btn-primary.me-1(href=route('editUser', { id: user.id }))= t('views.users.edit.submit')
+                form(action=route('userDelete', { id: user.id }), method = 'post')
+                  input(name='_method', type='hidden', value='delete')
+                  input.btn.btn-danger(type='submit', value=t('views.users.delete'))
