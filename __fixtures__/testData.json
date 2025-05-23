@@ -11,6 +11,12 @@
       "lastName": "Murrigan",
       "email": "lawrence.kulas87@outlook.com",
       "password": "O6AvLIQL1cbzrre"
+    },
+    "existing2": {
+      "firstName": "Glori",
+      "lastName": "Baytrop",
+      "email": "elbert_abshire52@gmail.com",
+      "password": "OB9vLIQD2cbrtre"
     }
   },
   "statuses": {
@@ -19,6 +25,25 @@
     },
     "existing": {
       "name": "Completed"
+    },
+    "existing2": {
+      "name": "no relations"
+    }
+  },
+  "tasks" : {
+    "new": {
+      "name": "New task",
+      "description": "Description for new task",
+      "statusId": 1,
+      "creatorId": 2,
+      "executorId": 2
+    },
+    "existing": {
+      "name": "Existing task",
+      "description": "Description for existing task",
+      "statusId": 1,
+      "creatorId": 2,
+      "executorId": 2
     }
   }
 }

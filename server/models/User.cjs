@@ -23,6 +23,29 @@ module.exports = class User extends unique(BaseModel) {
     };
   }
 
+  static get relationMappings() {
+    const Task = require('./Task.cjs');
+
+    return {
+      createdTasks: {
+        relation: BaseModel.HasManyRelation,
+        modelClass: Task,
+        join: {
+          from: 'users.id',
+          to: 'tasks.creatorId',
+        },
+      },
+      assignedTasks: {
+        relation: BaseModel.HasManyRelation,
+        modelClass: Task,
+        join: {
+          from: 'users.id',
+          to: 'tasks.executorId',
+        },
+      },
+    };
+  }
+
   set password(value) {
     this.passwordDigest = encrypt(value);
   }

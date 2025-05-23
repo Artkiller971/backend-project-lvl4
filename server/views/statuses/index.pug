@@ -3,23 +3,22 @@ extends ../layouts/application.pug
 block header
   = t('views.statuses.statusesList')
 block content
-  .container.wrapper.flex-grow-1
-    a.btn.btn-primary(href=route('newStatus'))= t('views.statuses.createStatus')
-    table.table.table-striped
-      thead
+  a.btn.btn-primary(href=route('newStatus'))= t('views.statuses.createStatus')
+  table.table.table-striped
+    thead
+      tr
+        th= t('views.statuses.id')
+        th= t('views.statuses.name')
+        th= t('views.statuses.createdAt')
+    tbody
+      each status in statuses
         tr
-          th= t('views.statuses.id')
-          th= t('views.statuses.name')
-          th= t('views.statuses.createdAt')
-      tbody
-        each status in statuses
-          tr
-            td= status.id
-            td= status.name
-            td= formatDate(status.createdAt)
-            td
-              .d-flex.flex-wrap
-                a.btn.btn-primary.me-1(href=route('editStatus', { id: status.id }))= t('views.statuses.edit.submit')
-                form(action=route('statusDelete', { id: status.id }), method = 'post')
-                  input(name='_method', type='hidden', value='delete')
-                  input.btn.btn-danger(type='submit', value=t('views.statuses.delete'))
+          td= status.id
+          td= status.name
+          td= formatDate(status.createdAt)
+          td
+            .d-flex.flex-wrap
+              a.btn.btn-primary.me-1(href=route('editStatus', { id: status.id }))= t('views.statuses.edit.submit')
+              form(action=route('statusDelete', { id: status.id }), method = 'post')
+                input(name='_method', type='hidden', value='delete')
+                input.btn.btn-danger(type='submit', value=t('views.statuses.delete'))

@@ -65,7 +65,16 @@ export default (app) => {
       const id = req.params.id;
 
       try {
-        const user = await app.objection.models.user.query().findById(id);
+        const user = await app.objection.models.user
+          .query()
+          .findById(id)
+          .withGraphFetched('[createdTasks, assignedTasks]');
+
+        if ((user.createdTasks.length !== 0) || (user.assignedTasks.length !== 0)) {
+          req.flash('error', i18next.t('flash.users.delete.error'));
+          reply.redirect(app.reverse('users'));
+          return reply;
+        }
         await user.$query().delete();
         req.logOut();
         req.flash('info', i18next.t('flash.users.delete.success'));

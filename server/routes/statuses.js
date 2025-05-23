@@ -64,7 +64,17 @@ export default (app) => {
       const id = req.params.id;
 
       try {
-        const status = await app.objection.models.status.query().findById(id);
+        const status = await app.objection.models.status
+          .query()
+          .findById(id)
+          .withGraphFetched('tasks');
+
+        if (status.tasks.length !== 0) {
+          req.flash('error', i18next.t('flash.statuses.delete.error'));
+          reply.redirect(app.reverse('statuses'));
+          return reply;
+        }
+
         await status.$query().delete();
         req.flash('info', i18next.t('flash.statuses.delete.success'));
         reply.redirect(app.reverse('statuses'));

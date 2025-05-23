@@ -73,6 +73,24 @@ export default {
           submit: 'Редактировать',
         },
         delete: 'Удалить',
+        createUser: 'Создать пользователя',
+        usersList: 'Пользователи',
+      },
+      statuses: {
+        id: 'ID',
+        name: 'Название',
+        createdAt: 'Дата создания',
+        edit: {
+          status: 'Редактировать статус',
+          submit: 'Редактировать',
+        },
+        delete: 'Удалить',
+        new: {
+          submit: 'Создать',
+          creation: 'Создание статус',
+        },
+        statusesList: 'Статусы',
+        createStatus: 'Создать статус',
       },
       welcome: {
         index: {

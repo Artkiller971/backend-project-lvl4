@@ -102,8 +102,8 @@ describe('test users CRUD', () => {
     expect(updatedUser.firstName).toBe('Changed');
   });
 
-  it('delete', async () => {
-    const params = testData.users.existing;
+  it('delete ok', async () => {
+    const params = testData.users.existing2;
     const responseSignIn = await app.inject({
       method: 'POST',
       url: app.reverse('session'),
@@ -129,6 +129,35 @@ describe('test users CRUD', () => {
     const deletedUser = await models.user.query().findOne({ email: params.email });
 
     expect(deletedUser).toBeUndefined();
+  });
+
+  it('delete not ok', async () => {
+    const params = testData.users.existing;
+    const responseSignIn = await app.inject({
+      method: 'POST',
+      url: app.reverse('session'),
+      payload: {
+        data: params,
+      },
+    });
+
+    const [sessionCookie] = responseSignIn.cookies;
+    const { name, value } = sessionCookie;
+    const cookie = { [name]: value };
+
+    const user = await models.user.query().findOne({ email: params.email });
+
+    const responseDelete = await app.inject({
+      method: 'DELETE',
+      url: app.reverse('userDelete', { id: user.id }),
+      cookies: cookie,
+    });
+
+    expect(responseDelete.statusCode).toBe(302);
+
+    const deletedUser = await models.user.query().findOne({ email: params.email });
+
+    expect(deletedUser).toMatchObject(user);
   });
 
   afterEach(async () => {

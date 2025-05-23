@@ -1,0 +1,16 @@
+[
+  {
+    "name": "New status",
+      "description": "Description for new status",
+      "statusId": 1,
+      "creatorId": 2,
+      "executorId": 2
+  },
+  {
+    "name": "Existing task",
+      "description": "Description for existing status",
+      "statusId": 1,
+      "creatorId": 2,
+      "executorId": 2
+  }
+]

@@ -7,7 +7,7 @@ import fastify from 'fastify';
 import init from '../server/plugin.js';
 import { getTestData, prepareData } from './helpers/index.js';
 
-describe('test statuses CRUD', () => {
+describe('test tasks CRUD', () => {
   let app;
   let knex;
   let models;
@@ -45,14 +45,14 @@ describe('test statuses CRUD', () => {
   it('index', async () => {
     const noCookieResponse = await app.inject({
       method: 'GET',
-      url: app.reverse('statuses'),
+      url: app.reverse('tasks'),
     });
 
     expect(noCookieResponse.statusCode).toBe(302);
 
     const cookieResponse = await app.inject({
       method: 'GET',
-      url: app.reverse('statuses'),
+      url: app.reverse('tasks'),
       cookies: cookie,
     });
 
@@ -62,7 +62,7 @@ describe('test statuses CRUD', () => {
   it('new', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: app.reverse('newStatus'),
+      url: app.reverse('newTask'),
       cookies: cookie,
     });
 
@@ -70,10 +70,10 @@ describe('test statuses CRUD', () => {
   });
 
   it('create', async () => {
-    const params = testData.statuses.new;
+    const params = testData.tasks.new;
     const response = await app.inject({
       method: 'POST',
-      url: app.reverse('statuses'),
+      url: app.reverse('tasks'),
       payload: {
         data: params,
       },
@@ -81,22 +81,19 @@ describe('test statuses CRUD', () => {
     });
 
     expect(response.statusCode).toBe(302);
-    const expected = {
-      name: 'Done',
-    };
-    const status = await models.status.query().findOne({ name: params.name });
-    expect(status).toMatchObject(expected);
+    const task = await models.task.query().findOne({ name: params.name });
+    expect(task).toMatchObject(params);
   });
 
   it('edit', async () => {
-    const params = testData.statuses.existing;
-    const status = await models.status.query().findOne({ name: params.name });
+    const params = testData.tasks.existing;
+    const task = await models.task.query().findOne({ name: params.name });
 
-    const newParams = { name: 'Changed' };
+    const newParams = { ...params, name: 'Changed' };
 
     const responseEdit = await app.inject({
       method: 'PATCH',
-      url: app.reverse('statusEdit', { id: status.id }),
+      url: app.reverse('taskEdit', { id: task.id }),
       payload: {
         data: newParams,
       },
@@ -105,45 +102,27 @@ describe('test statuses CRUD', () => {
 
     expect(responseEdit.statusCode).toBe(302);
 
-    const updatedStatus = await models.status.query().findOne({ name: newParams.name });
+    const updatedTask = await models.task.query().findOne({ name: newParams.name });
 
-    expect(updatedStatus.name).toBe('Changed');
+    expect(updatedTask.name).toBe('Changed');
   });
 
-  it('delete ok', async () => {
-    const params = testData.statuses.existing2;
+  it('delete', async () => {
+    const params = testData.tasks.existing;
 
-    const status = await models.status.query().findOne({ name: params.name });
+    const task = await models.task.query().findOne({ name: params.name });
 
     const responseDelete = await app.inject({
       method: 'DELETE',
-      url: app.reverse('statusDelete', { id: status.id }),
+      url: app.reverse('taskDelete', { id: task.id }),
       cookies: cookie,
     });
 
     expect(responseDelete.statusCode).toBe(302);
 
-    const deletedStatus = await models.status.query().findOne({ name: params.name });
+    const deletedTask = await models.task.query().findOne({ name: params.name });
 
-    expect(deletedStatus).toBeUndefined();
-  });
-
-  it('delete not ok', async () => {
-    const params = testData.statuses.existing;
-
-    const status = await models.status.query().findOne({ name: params.name });
-
-    const responseDelete = await app.inject({
-      method: 'DELETE',
-      url: app.reverse('statusDelete', { id: status.id }),
-      cookies: cookie,
-    });
-
-    expect(responseDelete.statusCode).toBe(302);
-
-    const deletedStatus = await models.status.query().findOne({ name: params.name });
-
-    expect(deletedStatus).toMatchObject(status);
+    expect(deletedTask).toBeUndefined();
   });
 
   afterEach(async () => {
