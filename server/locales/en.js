@@ -41,6 +41,21 @@ export default {
         },
         authError: 'Access Denied',
       },
+      tasks: {
+        create: {
+          error: 'Failed to create task',
+          success: 'Task created successfully',
+        },
+        update: {
+          error: 'Failed to update task',
+          success: 'Task successfully updated',
+        },
+        delete: {
+          error: 'Failed to delete task',
+          success: 'Task successfully deleted',
+        },
+        authError: 'Access Denied',
+      },
       authError: 'Access denied! Please login',
     },
     layouts: {
@@ -50,6 +65,7 @@ export default {
         signIn: 'Log in',
         signUp: 'Register',
         signOut: 'Log out',
+        tasks: 'Tasks',
       },
     },
     views: {
@@ -93,6 +109,21 @@ export default {
         statusesList: 'Statuses',
         createStatus: 'Create status',
       },
+      tasks: {
+        id: 'ID',
+        name: 'Name',
+        createdAt: 'Created at',
+        status: 'Status',
+        creator: 'Creator',
+        executor: 'Executor',
+        edit: 'Edit',
+        delete: 'Delete',
+        createTask: 'Create task',
+        tasksList: 'Tasks',
+        new: 'New Task',
+        create: 'Create',
+        editTask: 'Edit task',
+      },
       welcome: {
         index: {
           hello: 'Welcome to the Task Manager app',
@@ -100,6 +131,17 @@ export default {
           more: 'Learn more',
         },
       },
+    },
+    form: {
+      name: 'Name',
+      description: 'Description',
+      statusId: 'Status',
+      creatorId: 'Creator',
+      executorId: 'Executor',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      email: 'Email',
+      password: 'Password',
     },
   },
 };

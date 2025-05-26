@@ -29,7 +29,7 @@ module.exports = class Task extends BaseModel {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: Status,
         join: {
-          from: 'tasks.statusIs',
+          from: 'tasks.statusId',
           to: 'statuses.id',
         },
       },

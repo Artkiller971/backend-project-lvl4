@@ -49,6 +49,7 @@ export default {
         signIn: 'Вход',
         signUp: 'Регистрация',
         signOut: 'Выход',
+        tasks: 'Задачи',
       },
     },
     views: {
@@ -92,6 +93,20 @@ export default {
         statusesList: 'Статусы',
         createStatus: 'Создать статус',
       },
+      tasks: {
+        id: 'ID',
+        name: 'Название',
+        createdAt: 'Дата создания',
+        status: 'Статус',
+        creator: 'Создатель',
+        executor: 'Исполнитель',
+        edit: 'Редактировать',
+        delete: 'Удалить',
+        createTask: 'Создать задачу',
+        tasksList: 'Задачи',
+        new: 'Новая задача',
+        create: 'Создать',
+      },
       welcome: {
         index: {
           hello: 'Добро пожаловать в Менеджер Задач',
@@ -99,6 +114,17 @@ export default {
           more: 'Узнать Больше',
         },
       },
+    },
+    form: {
+      name: 'Название',
+      description: 'Описание',
+      statusId: 'Статус',
+      creatorId: 'Создатель',
+      executorId: 'Исполнитель',
+      firstName: 'Имя',
+      lastName: 'Фамилия',
+      email: 'Email',
+      password: 'Пароль',
     },
   },
 };

@@ -12,13 +12,30 @@ mixin input(entity, propertyName, errors = {})
   .mb-3(class=(errors[propertyName] && 'has-danger'))
     label(
       for= inputId
-    )= propertyName
+    )= t(`form.${propertyName}`)
     input(
       id= inputId
       name=getInputName(propertyName)
       class=classLine
       value=_.get(entity, propertyName, '')
     )&attributes(attributes)
+    if !_.isEmpty(propertyErrors)
+      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+
+mixin textarea(entity, propertyName, errors = {})
+  - propertyErrors = _.get(errors, propertyName)
+  - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
+  - inputId = getInputId(propertyName)
+  - value=_.get(entity, propertyName, '')
+  .mb-3(class=(errors[propertyName] && 'has-danger'))
+    label(
+      for= inputId
+    )= t(`form.${propertyName}`)
+    textarea(
+      id= inputId
+      name=getInputName(propertyName)
+      class=classLine
+    )&attributes(attributes) #{value}
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
 
@@ -35,15 +52,19 @@ mixin select(entity, propertyName, errors = {}, items, multiple = false)
   - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
   - inputId = getInputId(propertyName)
   - name = getInputName(propertyName)
+  - selectedOptions = entity[propertyName] ? [entity[propertyName]].flat().map((item) => item.id ? Number(item.id) : Number(item)) : []
   .mb-3(class=(errors[propertyName] && 'has-danger'))
     label(
       for= inputId
-    )= propertyName
-    input(
+    )= t(`form.${propertyName}`)
+    select(
       id= inputId
       name=getInputName(propertyName)
       class=classLine
-      value=_.get(entity, propertyName, '')
-    )&attributes(attributes)
+    )
+      option
+      each option in items
+        - isSelect = _.includes(selectedOptions, option.id)
+        option(value=option.id selected= isSelect) #{option.name}
     if !_.isEmpty(propertyErrors)
-      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+      .invalid-feedback= propertyErrors.map(({ message }) => message === 'must be integer'? 'must be specified' : message).join('. ')
