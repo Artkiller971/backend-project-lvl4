@@ -21,7 +21,11 @@ block content
             a(href=route('showTask', { id: task.id }))= task.name
           td= task.status.name
           td= task.creator.name
-          td= task.executor.name
+          td
+            if !task.executor
+              =''
+            else
+              =task.executor.name
           td= formatDate(task.createdAt)
           td
             .d-flex.flex-wrap

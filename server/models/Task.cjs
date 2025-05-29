@@ -15,7 +15,7 @@ module.exports = class Task extends BaseModel {
         description: { type: 'string', minLength: 1 },
         statusId: { type: 'integer' },
         creatorId: { type: 'integer' },
-        executorId: { type: 'integer' },
+        executorId: { type: 'number', nullable: true },
       },
     };
   }
@@ -52,9 +52,10 @@ module.exports = class Task extends BaseModel {
           to: 'users.id',
         },
       },
+
       labels: {
-        realtion: BaseModel.ManyToManyRelation,
-        modelCalss: Label,
+        relation: BaseModel.ManyToManyRelation,
+        modelClass: Label,
         join: {
           from: 'tasks.id',
           through: {
@@ -66,5 +67,4 @@ module.exports = class Task extends BaseModel {
       },
     };
   }
-
 };

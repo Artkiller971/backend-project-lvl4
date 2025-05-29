@@ -23,6 +23,8 @@ html(lang="ru" data-bs-theme="dark")
               li.nav-item
                 a.nav-link(href='/tasks')= t('layouts.application.tasks')
               li.nav-item
+                a.nav-link(href='/labels')= t('layouts.application.labels')
+              li.nav-item
                 +buttonTo(route('session'), 'delete')(class="btn nav-link" value=t('layouts.application.signOut'))
             else
               li.nav-item

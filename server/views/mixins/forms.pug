@@ -68,3 +68,25 @@ mixin select(entity, propertyName, errors = {}, items, multiple = false)
         option(value=option.id selected= isSelect) #{option.name}
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message }) => message === 'must be integer'? 'must be specified' : message).join('. ')
+
+mixin selectMultiple(entity, propertyName, errors = {}, items)
+  - propertyErrors = _.get(errors, propertyName)
+  - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
+  - inputId = getInputId(propertyName)
+  - name = getInputName(propertyName)
+  - selectedOptions = entity[propertyName] ? [entity[propertyName]].flat().map((item) => item.id ? Number(item.id) : Number(item)) : []
+  .mb-3(class=(errors[propertyName] && 'has-danger'))
+    label(
+      for= inputId
+    )= t(`form.${propertyName}`)
+    select(
+      id= inputId
+      name=getInputName(propertyName)
+      class=classLine
+      multiple
+    )
+      each option in items
+        - isSelect = _.includes(selectedOptions, option.id)
+        option(value=option.id selected= isSelect) #{option.name}
+    if !_.isEmpty(propertyErrors)
+      .invalid-feedback= propertyErrors.map(({ message }) => message === 'must be integer'? 'must be specified' : message).join('. ')
