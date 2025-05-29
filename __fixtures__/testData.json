@@ -45,5 +45,16 @@
       "creatorId": 2,
       "executorId": 2
     }
+  },
+  "labels": {
+    "new": {
+      "name": "New label"
+    },
+    "existing": {
+      "name": "Existing label"
+    },
+    "existing2": {
+      "name": "no relations"
+    }
   }
 }

@@ -1,14 +1,14 @@
 [
   {
-    "name": "New status",
-      "description": "Description for new status",
+    "name": "New task",
+      "description": "Description for new task",
       "statusId": 1,
       "creatorId": 2,
       "executorId": 2
   },
   {
     "name": "Existing task",
-      "description": "Description for existing status",
+      "description": "Description for existing task",
       "statusId": 1,
       "creatorId": 2,
       "executorId": 2

@@ -102,7 +102,7 @@ describe('test users CRUD', () => {
     expect(updatedUser.firstName).toBe('Changed');
   });
 
-  it('delete ok', async () => {
+  it('delete no relations', async () => {
     const params = testData.users.existing2;
     const responseSignIn = await app.inject({
       method: 'POST',
@@ -131,7 +131,7 @@ describe('test users CRUD', () => {
     expect(deletedUser).toBeUndefined();
   });
 
-  it('delete not ok', async () => {
+  it('delete with relations', async () => {
     const params = testData.users.existing;
     const responseSignIn = await app.inject({
       method: 'POST',
