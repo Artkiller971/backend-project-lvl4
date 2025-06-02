@@ -4,8 +4,24 @@ import { ValidationError } from 'objection';
 export default (app) => {
   app
     .get('/tasks', { name: 'tasks', preValidation: app.authenticate }, async (req, reply) => {
-      const tasks = await app.objection.models.task.query().withGraphFetched('[status, creator, executor]');
-      reply.render('tasks/index', { tasks });
+      const { query } = req;
+      console.log(query);
+      const currentUserId = req.user.id;
+
+      const tasks = await app.objection.models.task
+        .query()
+        .withGraphJoined('[status, creator, executor, labels]')
+        .modify('filterByStatus', query.statusId)
+        .modify('filterByExecutor', query.executorId)
+        .modify('filterByLabel', query.labelId)
+        .modify('filterOwn', currentUserId);
+
+      const task = new app.objection.models.task();
+      const statuses = await app.objection.models.status.query();
+      const users = await app.objection.models.user.query();
+      const labels = await app.objection.models.label.query();
+
+      reply.render('tasks/index', { tasks, task, statuses, users, labels, query });
       return reply;
     })
     .get('/tasks/new', { name: 'newTask' }, async (req, reply) => {
@@ -43,8 +59,9 @@ export default (app) => {
       try {
         const task = await app.objection.models.task.query().findById(id);
         const creatorId = task.creatorId;
-        const { name, description, executorId, statusId, reqLabels = [] } = req.body.data;
-        const labels = reqLabels.map((item) => ({ id: parseInt(item, 10) }));
+        const { name, description, executorId, statusId, labels = [] } = req.body.data;
+        console.log(labels);
+        const mappedLabels = [labels].flatMap((item) => ({ id: parseInt(item, 10) }));
         await task.$transaction(async (trx) => {
           await app.objection.models.task.query(trx).upsertGraph(
             {
@@ -54,7 +71,7 @@ export default (app) => {
               creatorId,
               executorId: parseInt(executorId, 10) || null,
               statusId: parseInt(statusId, 10),
-              labels,
+              labels: mappedLabels,
             },
             {
               relate: true,
@@ -86,12 +103,12 @@ export default (app) => {
 
       try {
         const creatorId = req.user.id;
-        const { name, description, executorId, statusId, reqLabels = [] } = req.body.data;
-        const labels = reqLabels.map((item) => ({ id: parseInt(item, 10) }));
+        const { name, description, executorId, statusId, labels = [] } = req.body.data;
+        const mapped = [labels].flatMap((item) => ({ id: parseInt(item, 10) }));
         const validtask = await app.objection.models.task
           .fromJson({ name, description, creatorId, executorId: parseInt(executorId, 10) || null, statusId: parseInt(statusId, 10) });
         await app.objection.models.task.transaction(async (trx) => {
-          await app.objection.models.task.query(trx).insertGraph([{ ...validtask, labels }], { relate: ['labels'] });
+          await app.objection.models.task.query(trx).insertGraph([{ ...validtask, labels: mapped }], { relate: ['labels'] });
         });
         req.flash('info', i18next.t('flash.tasks.create.success'));
         reply.redirect(app.reverse('tasks'));

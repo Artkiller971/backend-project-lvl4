@@ -90,3 +90,25 @@ mixin selectMultiple(entity, propertyName, errors = {}, items)
         option(value=option.id selected= isSelect) #{option.name}
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message }) => message === 'must be integer'? 'must be specified' : message).join('. ')
+
+mixin filterSelect(entity, propertyName, items)
+  - inputId = getInputId(propertyName)
+    .col-12.col-md
+      .input-group.mb-3
+        label.input-group-text(for= inputId)= t(`views.${entity}.filter.${propertyName}`)
+        select.form-select(id= inputId, name=propertyName)
+          option
+          each option in items
+            option(value=option.id, selected= option.id == query[propertyName]) #{option.name}
+
+mixin checkbox(entity, propertyName)
+  - inputId = getInputId(propertyName)
+  .mb-3.form-check
+    label.form-check-label(
+      for= inputId
+    )= t(`views.tasks.filter.own`)
+    input.form-check-input(
+      type= 'checkbox'
+      id= inputId
+      name=getInputName(propertyName)
+    )

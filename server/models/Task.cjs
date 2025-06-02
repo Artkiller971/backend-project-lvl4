@@ -67,4 +67,30 @@ module.exports = class Task extends BaseModel {
       },
     };
   }
+
+  static modifiers = {
+    filterByStatus(builder, id = '') {
+      if (id !== '') {
+        builder.where('statusId', id);
+      }
+    },
+
+    filterByExecutor(builder, id = '') {
+      if (id !== '') {
+        builder.where('executorId', id);
+      }
+    },
+
+    filterByLabel(builder, id = '') {
+      if (id !== '') {
+        builder.where('labels.id', id);
+      }
+    },
+
+    filterOwn(builder, id = '') {
+      if (id !== '') {
+        builder.where('creatorId', id);
+      }
+    },
+  };
 };

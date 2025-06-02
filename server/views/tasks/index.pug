@@ -3,7 +3,18 @@ extends ../layouts/application.pug
 block header
   = t('views.tasks.tasksList')
 block content
-  a.btn.btn-primary(href=route('newTask'))= t('views.tasks.createTask')
+  a.btn.btn-primary.mb-5(href=route('newTask'))= t('views.tasks.createTask')
+
+  .card.shadow-sm
+    .card-body.p-4
+      +formFor()(action=route('tasks') method='get')
+        .row
+          +filterSelect('tasks', 'statusId', statuses)
+          +filterSelect('tasks', 'executorId', users)
+          +filterSelect('tasks', 'labelId', labels)
+        +checkbox('tasks', 'filterOwn')
+        +submit(task)(value=t('views.tasks.filter.submit'))
+  
   table.table.table-striped
     thead
       tr

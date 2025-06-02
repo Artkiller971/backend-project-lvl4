@@ -10,4 +10,4 @@ block content
     +select(task, 'executorId', errors, users)
     +select(task, 'statusId', errors, statuses)
     +selectMultiple(task, 'labels', errors, labels)
-    +submit(task)(value=t('views.tasks.create'))
+    +submit('task')(value=t('views.tasks.create'))

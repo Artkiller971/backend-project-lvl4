@@ -155,6 +155,13 @@ export default {
         new: 'New Task',
         create: 'Create',
         editTask: 'Edit task',
+        filter: {
+          statusId: 'Status',
+          executorId: 'Executor',
+          labelId: 'Label',
+          own: 'My tasks',
+          submit: 'Filter',
+        },
       },
       welcome: {
         index: {
