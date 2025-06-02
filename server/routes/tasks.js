@@ -5,7 +5,6 @@ export default (app) => {
   app
     .get('/tasks', { name: 'tasks', preValidation: app.authenticate }, async (req, reply) => {
       const { query } = req;
-      console.log(query);
       const currentUserId = req.user.id;
 
       const tasks = await app.objection.models.task
@@ -49,7 +48,6 @@ export default (app) => {
     })
     .get('/tasks/:id', { name: 'showTask' }, async (req, reply) => {
       const task = await app.objection.models.task.query().findById(req.params.id).withGraphJoined('[status, creator, executor, labels]');
-      console.log(task);
       reply.render('tasks/show', { task });
       return reply;
     })
@@ -60,8 +58,7 @@ export default (app) => {
         const task = await app.objection.models.task.query().findById(id);
         const creatorId = task.creatorId;
         const { name, description, executorId, statusId, labels = [] } = req.body.data;
-        console.log(labels);
-        const mappedLabels = [labels].flatMap((item) => ({ id: parseInt(item, 10) }));
+        const mappedLabels = [...labels].flatMap((item) => ({ id: parseInt(item, 10) }));
         await task.$transaction(async (trx) => {
           await app.objection.models.task.query(trx).upsertGraph(
             {
@@ -104,7 +101,7 @@ export default (app) => {
       try {
         const creatorId = req.user.id;
         const { name, description, executorId, statusId, labels = [] } = req.body.data;
-        const mapped = [labels].flatMap((item) => ({ id: parseInt(item, 10) }));
+        const mapped = [...labels].flatMap((item) => ({ id: parseInt(item, 10) }));
         const validtask = await app.objection.models.task
           .fromJson({ name, description, creatorId, executorId: parseInt(executorId, 10) || null, statusId: parseInt(statusId, 10) });
         await app.objection.models.task.transaction(async (trx) => {

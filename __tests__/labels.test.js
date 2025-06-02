@@ -111,7 +111,6 @@ describe('test labels CRUD', () => {
     const params = testData.labels.existing2;
 
     const label = await models.label.query().findOne({ name: params.name });
-    console.log(label);
 
     const responseDelete = await app.inject({
       method: 'DELETE',
@@ -130,7 +129,6 @@ describe('test labels CRUD', () => {
     const params = testData.labels.existing;
 
     const label = await models.label.query().findOne({ name: params.name });
-    console.log(label);
 
     const responseDelete = await app.inject({
       method: 'DELETE',

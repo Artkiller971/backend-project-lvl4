@@ -85,6 +85,26 @@ describe('test tasks CRUD', () => {
     expect(task).toMatchObject(params);
   });
 
+  it('create with multiple labels', async () => {
+    const params = testData.tasks.multipleLabels;
+    const response = await app.inject({
+      method: 'POST',
+      url: app.reverse('tasks'),
+      payload: {
+        data: params,
+      },
+      cookies: cookie,
+    });
+
+    expect(response.statusCode).toBe(302);
+    const task = await models.task
+      .query()
+      .withGraphJoined('labels')
+      .where('tasks.name', params.name);
+
+    expect(task[0].labels).toHaveLength(3);
+  });
+
   it('edit', async () => {
     const params = testData.tasks.existing;
     const task = await models.task.query().findOne({ name: params.name });
@@ -105,6 +125,31 @@ describe('test tasks CRUD', () => {
     const updatedTask = await models.task.query().findOne({ name: newParams.name });
 
     expect(updatedTask.name).toBe('Changed');
+  });
+
+  it('edit multiple labels', async () => {
+    const params = testData.tasks.multipleLabelsExisting;
+    const task = await models.task.query().findOne({ name: params.name });
+
+    const newParams = { ...params, labels: ['1', '2'] };
+
+    const responseEdit = await app.inject({
+      method: 'PATCH',
+      url: app.reverse('taskEdit', { id: task.id }),
+      payload: {
+        data: newParams,
+      },
+      cookies: cookie,
+    });
+
+    expect(responseEdit.statusCode).toBe(302);
+
+    const updatedTask = await models.task
+      .query()
+      .where('tasks.name', params.name)
+      .withGraphFetched('labels');
+
+    expect(updatedTask[0].labels).toHaveLength(2);
   });
 
   it('delete', async () => {

@@ -12,5 +12,10 @@
       "statusId": 1,
       "creatorId": 2,
       "executorId": 2
+  },
+  {
+    "name": "Cool task existing",
+      "description": "Cool description",
+      "statusId": 1
   }
 ]

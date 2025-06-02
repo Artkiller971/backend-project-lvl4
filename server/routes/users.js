@@ -14,7 +14,6 @@ export default (app) => {
     })
     .get('/users/:id/edit', { name: 'editUser', preValidation: [app.authenticate, app.userCanEditProfile] }, async (req, reply) => {
       const id = req.params.id;
-      console.log(req.user);
 
       const user = await app.objection.models.user.query().findById(id);
 

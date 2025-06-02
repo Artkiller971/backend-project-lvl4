@@ -44,6 +44,18 @@
       "statusId": 1,
       "creatorId": 2,
       "executorId": 2
+    },
+    "multipleLabels": {
+      "name": "Cool task",
+      "description": "Cool description",
+      "statusId": 1,
+      "labels": ["1", "2", "3"]
+    },
+    "multipleLabelsExisting": {
+      "name": "Cool task existing",
+      "description": "Cool description",
+      "statusId": 1,
+      "labels": ["1", "2", "3"]
     }
   },
   "labels": {
