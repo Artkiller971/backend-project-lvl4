@@ -13,6 +13,9 @@ migrate:
 migrate-prod:
 	NODE_ENV=production npx knex migrate:latest
 
+rollback-prod:
+	NODE_ENV=production npx knex migrate:rollback --all
+
 lint:
 	npx eslint .
 
