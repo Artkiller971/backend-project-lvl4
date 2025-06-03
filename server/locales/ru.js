@@ -103,7 +103,7 @@ export default {
           signUp: 'Регистрация',
         },
         edit: {
-          user: 'Изменить',
+          user: 'Изменение пользователя',
           submit: 'Изменить',
         },
         delete: 'Удалить',
@@ -114,7 +114,7 @@ export default {
         name: '	Наименование',
         createdAt: 'Дата создания',
         edit: {
-          status: 'Изменить',
+          status: 'Изменение статуса',
           submit: 'Изменить',
         },
         delete: 'Удалить',
@@ -130,7 +130,7 @@ export default {
         name: 'Наименование',
         createdAt: 'Дата создания',
         edit: {
-          label: 'Изменить',
+          label: 'Изменение метки',
           submit: 'Изменить',
         },
         delete: 'Удалить',
