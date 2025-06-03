@@ -13,7 +13,7 @@ export default (app) => {
       reply.render('labels/new', { label });
     })
     .get('/labels/:id/edit', { name: 'editLabel', preValidation: app.authenticate }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       const label = await app.objection.models.label.query().findById(id);
 
@@ -25,7 +25,7 @@ export default (app) => {
       return reply;
     })
     .patch('/labels/:id', { name: 'labelEdit', preValidation: app.authenticate }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       try {
         const label = await app.objection.models.label.query().findById(id);
@@ -61,7 +61,7 @@ export default (app) => {
       return reply;
     })
     .delete('/labels/:id', { name: 'labelDelete', preValidation: app.authenticate }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       try {
         const label = await app.objection.models.label
@@ -82,7 +82,7 @@ export default (app) => {
         req.flash('error', i18next.t('flash.labels.delete.error'));
         console.error(error);
         reply.redirect(app.reverse('labels'));
-      };
+      }
 
       return reply;
     });

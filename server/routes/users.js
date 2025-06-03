@@ -13,7 +13,7 @@ export default (app) => {
       reply.render('users/new', { user });
     })
     .get('/users/:id/edit', { name: 'editUser', preValidation: [app.authenticate, app.userCanEditProfile] }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       const user = await app.objection.models.user.query().findById(id);
 
@@ -25,7 +25,7 @@ export default (app) => {
       return reply;
     })
     .patch('/users/:id', { name: 'userEdit', preValidation: [app.authenticate, app.userCanEditProfile] }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       try {
         const user = await app.objection.models.user.query().findById(id);
@@ -61,7 +61,7 @@ export default (app) => {
       return reply;
     })
     .delete('/users/:id', { name: 'userDelete', preValidation: [app.authenticate, app.userCanEditProfile] }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       try {
         const user = await app.objection.models.user
@@ -82,7 +82,7 @@ export default (app) => {
         req.flash('error', i18next.t('flash.users.delete.error'));
         console.error(error);
         reply.redirect(app.reverse('users'));
-      };
+      }
 
       return reply;
     });

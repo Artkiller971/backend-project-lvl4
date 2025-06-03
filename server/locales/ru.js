@@ -111,7 +111,7 @@ export default {
       },
       statuses: {
         id: 'ID',
-        name: '	Наименование',
+        name: 'Наименование',
         createdAt: 'Дата создания',
         edit: {
           status: 'Изменение статуса',

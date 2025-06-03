@@ -37,7 +37,7 @@ const setErrorHandler = (app) => {
     rollbar.log('Setting up rollbar');
   }
 
-  app.setErrorHandler = (error, req, reply) => {
+  app.setErrorHandler((error, req, reply) => {
     const errorMessage = reply.statusCode === 500 ? 'Internal server error' : error.message;
 
     req.log(errorMessage);
@@ -47,7 +47,7 @@ const setErrorHandler = (app) => {
 
     req.flash('error', errorMessage);
     reply.redirect('/');
-  };
+  });
 };
 
 const setUpViews = (app) => {
@@ -111,7 +111,7 @@ const registerPlugins = async (app) => {
   });
 
   fastifyPassport.registerUserDeserializer(
-    (user) => app.objection.models.user.query().findById(user.id)
+    (user) => app.objection.models.user.query().findById(user.id),
   );
   fastifyPassport.registerUserSerializer((user) => Promise.resolve(user));
   fastifyPassport.use(new FormStrategy('form', app));
@@ -123,7 +123,7 @@ const registerPlugins = async (app) => {
     {
       failureRedirect: app.reverse('root'),
       failureFlash: i18next.t('flash.authError'),
-    }
+    },
   )(...args));
 
   await app.register(fastifyMethodOverride);

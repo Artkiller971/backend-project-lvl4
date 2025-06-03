@@ -13,7 +13,7 @@ export default (app) => {
       reply.render('statuses/new', { status });
     })
     .get('/statuses/:id/edit', { name: 'editStatus', preValidation: app.authenticate }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       const status = await app.objection.models.status.query().findById(id);
 
@@ -25,7 +25,7 @@ export default (app) => {
       return reply;
     })
     .patch('/statuses/:id', { name: 'statusEdit', preValidation: app.authenticate }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       try {
         const status = await app.objection.models.status.query().findById(id);
@@ -61,7 +61,7 @@ export default (app) => {
       return reply;
     })
     .delete('/statuses/:id', { name: 'statusDelete', preValidation: app.authenticate }, async (req, reply) => {
-      const id = req.params.id;
+      const { id } = req.params;
 
       try {
         const status = await app.objection.models.status
@@ -82,7 +82,7 @@ export default (app) => {
         req.flash('error', i18next.t('flash.statuses.delete.error'));
         console.error(error);
         reply.redirect(app.reverse('statuses'));
-      };
+      }
 
       return reply;
     });

@@ -22,4 +22,4 @@ export default class FormStrategy extends Strategy {
 
     return this.fail();
   }
-};
+}

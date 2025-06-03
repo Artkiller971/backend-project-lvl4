@@ -1,5 +1,5 @@
 import globals from 'globals';
-import stylisticJs from '@stylistic/eslint-plugin-js';
+import stylisticJs from '@stylistic/eslint-plugin';
 import importPlugin from 'eslint-plugin-import';
 
 export default [
@@ -14,13 +14,10 @@ export default [
       '@stylistic/js': stylisticJs,
       importPlugin,
     },
-    ignores: ['dist/**', 'src/**'],
+    ignores: ['dist/**', 'src/**', '__tests__/**'],
     rules: {
       semi: 'error',
       'no-shadow': 'error',
-      'object-curly-newline': ['error', {
-        ImportDeclaration: { multiline: true, minProperties: 3 },
-      }],
       'importPlugin/newline-after-import': 'error',
       'importPlugin/first': 'error',
       'object-shorthand': 'error',
@@ -33,16 +30,22 @@ export default [
       'arrow-body-style': ['error', 'as-needed'],
       'default-case': 'error',
       'no-else-return': 'error',
+      'prefer-destructuring': ['error', {
+        array: true,
+        object: true,
+      }],
       '@stylistic/js/quotes': ['error', 'single'],
+      '@stylistic/js/max-len': ['error', { ignoreStrings: true, code: 100 }],
       '@stylistic/js/comma-dangle': ['error', {
         arrays: 'always-multiline',
         objects: 'always-multiline',
         imports: 'always-multiline',
         exports: 'always',
-        functions: 'never',
+        functions: 'always-multiline',
         importAttributes: 'always',
         dynamicImports: 'always',
       }],
+      '@stylistic/js/no-extra-semi': 'error',
       '@stylistic/js/padded-blocks': ['error', { blocks: 'never' }],
       '@stylistic/js/no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
       '@stylistic/js/no-trailing-spaces': ['error'],
