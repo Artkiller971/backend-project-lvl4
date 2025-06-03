@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Artkiller971/backend-project-lvl4/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Artkiller971/backend-project-lvl4/actions)",
   "main": "./server/plugin.js",
+  "engines": {
+    "node": ">=22.x"
+  },
   "type": "module",
   "scripts": {
     "prebuild": "rm -rf dist",
