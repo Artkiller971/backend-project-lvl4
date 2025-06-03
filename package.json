@@ -30,7 +30,6 @@
     "@fastify/sensible": "^5.1.0",
     "@fastify/static": "^6.5.0",
     "@fastify/view": "^7.1.0",
-    "@vscode/sqlite3": "^5.1.8-vscode",
     "bootstrap": "^5.3.6",
     "fastify": "^4.10.2",
     "fastify-cli": "^7.4.0",
