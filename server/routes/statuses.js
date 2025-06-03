@@ -31,7 +31,7 @@ export default (app) => {
         const status = await app.objection.models.status.query().findById(id);
         await status.$query().patch(req.body.data);
         req.flash('info', i18next.t('flash.statuses.update.success'));
-        reply.redirect(app.reverse('root'));
+        reply.redirect(app.reverse('statuses'));
         return reply;
       } catch (error) {
         if (error instanceof ValidationError) {
@@ -52,7 +52,7 @@ export default (app) => {
         const validStatus = await app.objection.models.status.fromJson(req.body.data);
         await app.objection.models.status.query().insert(validStatus);
         req.flash('info', i18next.t('flash.statuses.create.success'));
-        reply.redirect(app.reverse('root'));
+        reply.redirect(app.reverse('statuses'));
       } catch ({ data }) {
         req.flash('error', i18next.t('flash.statuses.create.error'));
         reply.render('statuses/new', { status, errors: data });

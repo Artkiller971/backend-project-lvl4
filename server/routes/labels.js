@@ -31,7 +31,7 @@ export default (app) => {
         const label = await app.objection.models.label.query().findById(id);
         await label.$query().patch(req.body.data);
         req.flash('info', i18next.t('flash.labels.update.success'));
-        reply.redirect(app.reverse('root'));
+        reply.redirect(app.reverse('labels'));
         return reply;
       } catch (error) {
         if (error instanceof ValidationError) {
@@ -52,7 +52,7 @@ export default (app) => {
         const validLabel = await app.objection.models.label.fromJson(req.body.data);
         await app.objection.models.label.query().insert(validLabel);
         req.flash('info', i18next.t('flash.labels.create.success'));
-        reply.redirect(app.reverse('root'));
+        reply.redirect(app.reverse('labels'));
       } catch ({ data }) {
         req.flash('error', i18next.t('flash.labels.create.error'));
         reply.render('labels/new', { label, errors: data });

@@ -31,7 +31,7 @@ export default (app) => {
         const user = await app.objection.models.user.query().findById(id);
         await user.$query().patch(req.body.data);
         req.flash('info', i18next.t('flash.users.update.success'));
-        reply.redirect(app.reverse('root'));
+        reply.redirect(app.reverse('users'));
         return reply;
       } catch (error) {
         if (error instanceof ValidationError) {
