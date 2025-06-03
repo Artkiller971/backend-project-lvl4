@@ -33,9 +33,7 @@ const rollbar = new Rollbar({
 });
 
 const setErrorHandler = (app) => {
-  if (mode === 'production') {
-    rollbar.log('Setting up rollbar');
-  }
+  rollbar.log('Setting up rollbar');
 
   app.setErrorHandler = (error, req, reply) => {
     const errorMessage = reply.statusCode === 500 ? 'Internal server error' : error.message;
