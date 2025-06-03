@@ -147,7 +147,7 @@ describe('test statuses CRUD', () => {
   });
 
   afterEach(async () => {
-    await knex.migrate.rollback();
+    await knex('statuses').truncate();
   });
 
   afterAll(async () => {

@@ -171,7 +171,7 @@ describe('test tasks CRUD', () => {
   });
 
   afterEach(async () => {
-    await knex.migrate.rollback();
+    await knex('tasks').truncate();
   });
 
   afterAll(async () => {

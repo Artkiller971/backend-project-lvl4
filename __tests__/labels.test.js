@@ -144,7 +144,7 @@ describe('test labels CRUD', () => {
   });
 
   afterEach(async () => {
-    await knex.migrate.rollback();
+    await knex('labels').truncate();
   });
 
   afterAll(async () => {

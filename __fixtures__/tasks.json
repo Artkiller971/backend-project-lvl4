@@ -16,6 +16,7 @@
   {
     "name": "Cool task existing",
       "description": "Cool description",
-      "statusId": 1
+      "statusId": 1,
+      "creatorId": 2
   }
 ]

@@ -161,7 +161,7 @@ describe('test users CRUD', () => {
   });
 
   afterEach(async () => {
-    await knex.migrate.rollback();
+    await knex('users').truncate();
   });
 
   afterAll(async () => {
