@@ -96,6 +96,7 @@ export default {
         email: 'Email',
         firstName: 'Имя',
         lastName: 'Фамилия',
+        fullName: 'Полное имя',
         createdAt: 'Дата создания',
         new: {
           submit: 'Сохранить',

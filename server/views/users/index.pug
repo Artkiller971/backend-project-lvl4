@@ -4,21 +4,19 @@ block header
   = t('views.users.usersList')
 
 block content
-  .container.wrapper.flex-grow-1
-    table.table.table-striped
+  .table-responsive
+    table.table.table-borderless.table-striped.mt-5
       thead
         tr
           th= t('views.users.id')
-          th= t('views.users.firstName')
-          th= t('views.users.lastName')
+          th= t('views.users.fullName')
           th= t('views.users.email')
           th= t('views.users.createdAt')
       tbody
         each user in users
           tr
             td= user.id
-            td= user.firstName 
-            td= user.lastName
+            td= user.name
             td= user.email
             td= formatDate(user.createdAt)
             td
