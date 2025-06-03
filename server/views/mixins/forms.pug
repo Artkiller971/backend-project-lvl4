@@ -102,7 +102,7 @@ mixin filterSelect(entity, propertyName, items)
             option(value=option.id, selected= option.id == query[propertyName]) #{option.name}
 
 mixin checkbox(entity, propertyName)
-  - inputId = getInputId(propertyName)
+  - inputId = 'isCreatorUser'
   .mb-3.form-check
     label.form-check-label(
       for= inputId
@@ -110,5 +110,5 @@ mixin checkbox(entity, propertyName)
     input.form-check-input(
       type= 'checkbox'
       id= inputId
-      name=getInputName(propertyName)
+      name=propertyName
     )

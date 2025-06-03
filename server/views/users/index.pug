@@ -5,7 +5,6 @@ block header
 
 block content
   .container.wrapper.flex-grow-1
-    a.btn.btn-primary(href=route('newUser'))= t('views.users.createUser')
     table.table.table-striped
       thead
         tr
@@ -24,7 +23,7 @@ block content
             td= formatDate(user.createdAt)
             td
               .d-flex.flex-wrap
-                a.btn.btn-primary.me-1(href=route('editUser', { id: user.id }))= t('views.users.edit.submit')
+                a.btn.btn-primary.me-3(href=route('editUser', { id: user.id }))= t('views.users.edit.submit')
                 form(action=route('userDelete', { id: user.id }), method = 'post')
                   input(name='_method', type='hidden', value='delete')
                   input.btn.btn-danger(type='submit', value=t('views.users.delete'))

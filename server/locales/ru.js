@@ -4,26 +4,27 @@ export default {
     flash: {
       session: {
         create: {
-          success: 'Вы залогинены',
-          error: 'Неправильный емейл или пароль',
+          success: 'Вы вошли',
+          error: 'Неправильный эмейл или пароль',
         },
         delete: {
-          success: 'Вы разлогинены',
+          success: 'Вы разлогинились',
         },
       },
       users: {
         create: {
-          error: 'Не удалось зарегистрировать пользователя',
-          success: 'Пользователь успешно зарегистрирован',
+          error: 'Ошибка при регистрации',
+          success: 'Пользователь успешно зарегестрирован',
         },
         update: {
-          error: 'Не удалось обновить пользователя',
-          success: 'Пользователь успешно обновлен',
+          error: 'Ошибка в изменении пользователя',
+          success: 'Пользователь успешно изменен',
         },
         delete: {
           error: 'Не удалось удалить пользователя',
           success: 'Пользователь успешно удален',
         },
+        authError: 'В доступе отказано',
       },
       statuses: {
         create: {
@@ -31,16 +32,46 @@ export default {
           success: 'Статус успешно создан',
         },
         update: {
-          error: 'Не удалось обновить статус',
-          success: 'Статус успешно обновлен',
+          error: 'Не удалось изменить статус',
+          success: 'Статус успешно изменен',
         },
         delete: {
           error: 'Не удалось удалить статус',
           success: 'Статус успешно удален',
         },
-        authError: 'Отказано в доступе',
+        authError: 'В доступе отказано',
       },
-      authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
+      tasks: {
+        create: {
+          error: 'Не удалось создать задачу',
+          success: 'Задача успешно создана',
+        },
+        update: {
+          error: 'Не удалось изменить задачу',
+          success: 'Задача успешно изменена',
+        },
+        delete: {
+          error: 'Не удалось удалить задачу',
+          success: 'Задача успешно удалена',
+        },
+        authError: 'В доступе отказано',
+      },
+      labels: {
+        create: {
+          error: 'Не удалось создать метку',
+          success: 'Метка успешно создана',
+        },
+        update: {
+          error: 'Не удалось изменить метку',
+          success: 'Метка успешно изменена',
+        },
+        delete: {
+          error: 'Не удалось удалить метку',
+          success: 'Метка успешно удалена',
+        },
+        authError: 'В доступе отказано',
+      },
+      authError: 'В доступе отказано, пожалуйста войдите!',
     },
     layouts: {
       application: {
@@ -50,73 +81,97 @@ export default {
         signUp: 'Регистрация',
         signOut: 'Выход',
         tasks: 'Задачи',
+        labels: 'Метки',
       },
     },
     views: {
       session: {
         new: {
-          signIn: 'Вход',
+          signIn: 'Войти',
           submit: 'Войти',
         },
       },
       users: {
         id: 'ID',
+        email: 'Email',
         firstName: 'Имя',
         lastName: 'Фамилия',
-        email: 'Email',
         createdAt: 'Дата создания',
         new: {
           submit: 'Сохранить',
           signUp: 'Регистрация',
         },
         edit: {
-          user: 'Редактировать',
-          submit: 'Редактировать',
+          user: 'Изменить',
+          submit: 'Изменить',
         },
         delete: 'Удалить',
-        createUser: 'Создать пользователя',
         usersList: 'Пользователи',
       },
       statuses: {
         id: 'ID',
-        name: 'Название',
+        name: '	Наименование',
         createdAt: 'Дата создания',
         edit: {
-          status: 'Редактировать статус',
-          submit: 'Редактировать',
+          status: 'Изменить',
+          submit: 'Изменить',
         },
         delete: 'Удалить',
         new: {
           submit: 'Создать',
-          creation: 'Создание статус',
+          creation: '',
         },
         statusesList: 'Статусы',
         createStatus: 'Создать статус',
       },
+      labels: {
+        id: 'ID',
+        name: 'Наименование',
+        createdAt: 'Дата создания',
+        edit: {
+          label: 'Изменить',
+          submit: 'Изменить',
+        },
+        delete: 'Удалить',
+        new: {
+          submit: 'Создать',
+          creation: 'Create Label',
+        },
+        labelsList: 'Метки',
+        createLabel: 'Создать метку',
+      },
       tasks: {
         id: 'ID',
-        name: 'Название',
+        name: 'Наименование',
         createdAt: 'Дата создания',
         status: 'Статус',
-        creator: 'Создатель',
+        creator: 'Автор',
         executor: 'Исполнитель',
-        edit: 'Редактировать',
+        edit: 'Изменить',
         delete: 'Удалить',
         createTask: 'Создать задачу',
         tasksList: 'Задачи',
-        new: 'Новая задача',
+        new: 'Создание задачи',
         create: 'Создать',
+        editTask: 'Изменение задачи',
+        filter: {
+          status: 'Статус',
+          executor: 'Исполнитель',
+          label: 'Метка',
+          own: 'Только мои задачи',
+          submit: 'Показать',
+        },
       },
       welcome: {
         index: {
           hello: 'Добро пожаловать в Менеджер Задач',
-          description: 'Приложение для отслеживания выполнения задач',
-          more: 'Узнать Больше',
+          description: 'Создавайте задачи и следите за их выполнением',
+          more: 'Узнать больше',
         },
       },
     },
     form: {
-      name: 'Название',
+      name: 'Наименование',
       description: 'Описание',
       statusId: 'Статус',
       creatorId: 'Создатель',
@@ -125,6 +180,7 @@ export default {
       lastName: 'Фамилия',
       email: 'Email',
       password: 'Пароль',
+      labels: 'Метки',
     },
   },
 };

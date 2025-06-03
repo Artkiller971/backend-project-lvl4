@@ -3,7 +3,7 @@ extends ../layouts/application.pug
 block header
   = t('views.statuses.statusesList')
 block content
-  a.btn.btn-primary(href=route('newStatus'))= t('views.statuses.createStatus')
+  a.btn.btn-primary.mb-5(href=route('newStatus'))= t('views.statuses.createStatus')
   table.table.table-striped
     thead
       tr
@@ -18,7 +18,7 @@ block content
           td= formatDate(status.createdAt)
           td
             .d-flex.flex-wrap
-              a.btn.btn-primary.me-1(href=route('editStatus', { id: status.id }))= t('views.statuses.edit.submit')
+              a.btn.btn-primary.me-3(href=route('editStatus', { id: status.id }))= t('views.statuses.edit.submit')
               form(action=route('statusDelete', { id: status.id }), method = 'post')
                 input(name='_method', type='hidden', value='delete')
                 input.btn.btn-danger(type='submit', value=t('views.statuses.delete'))

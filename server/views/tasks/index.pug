@@ -9,10 +9,10 @@ block content
     .card-body.p-4
       +formFor()(action=route('tasks') method='get')
         .row
-          +filterSelect('tasks', 'statusId', statuses)
-          +filterSelect('tasks', 'executorId', users)
-          +filterSelect('tasks', 'labelId', labels)
-        +checkbox('tasks', 'filterOwn')
+          +filterSelect('tasks', 'status', statuses)
+          +filterSelect('tasks', 'executor', users)
+          +filterSelect('tasks', 'label', labels)
+        +checkbox('tasks', 'isCreatorUser')
         +submit(task)(value=t('views.tasks.filter.submit'))
   
   table.table.table-striped

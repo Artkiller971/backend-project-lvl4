@@ -3,7 +3,7 @@ extends ../layouts/application.pug
 block header
   = t('views.labels.labelsList')
 block content
-  a.btn.btn-primary(href=route('newLabel'))= t('views.labels.createLabel')
+  a.btn.btn-primary.mb-5(href=route('newLabel'))= t('views.labels.createLabel')
   table.table.table-striped
     thead
       tr

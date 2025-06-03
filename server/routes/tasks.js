@@ -5,14 +5,14 @@ export default (app) => {
   app
     .get('/tasks', { name: 'tasks', preValidation: app.authenticate }, async (req, reply) => {
       const { query } = req;
-      const currentUserId = req.user.id;
+      const currentUserId = query.isCreatorUser ? req.user.id : '';
 
       const tasks = await app.objection.models.task
         .query()
         .withGraphJoined('[status, creator, executor, labels]')
-        .modify('filterByStatus', query.statusId)
-        .modify('filterByExecutor', query.executorId)
-        .modify('filterByLabel', query.labelId)
+        .modify('filterByStatus', query.status)
+        .modify('filterByExecutor', query.executor)
+        .modify('filterByLabel', query.label)
         .modify('filterOwn', currentUserId);
 
       const task = new app.objection.models.task();
