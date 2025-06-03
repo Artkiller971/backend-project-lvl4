@@ -32,8 +32,22 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
-const setUpRollbar = (app) => {
-  app.use(rollbar.errorHandler());
+const setErrorHandler = (app) => {
+  if (mode === 'production') {
+    rollbar.log('Setting up rollbar');
+  }
+
+  app.setErrorHandler = (error, req, reply) => {
+    const errorMessage = reply.statusCode === 500 ? 'Internal server error' : error.message;
+
+    req.log(errorMessage);
+    if (mode === 'production') {
+      rollbar.log(error);
+    }
+
+    req.flash('error', errorMessage);
+    reply.redirect('/');
+  };
 };
 
 const setUpViews = (app) => {
@@ -140,7 +154,7 @@ export default async (app, _options) => {
   setUpStaticAssets(app);
   addRoutes(app);
   addHooks(app);
-  setUpRollbar(app);
+  setErrorHandler(app);
 
   return app;
 };
