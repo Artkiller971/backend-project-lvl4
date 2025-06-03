@@ -87,7 +87,7 @@ export default {
     views: {
       session: {
         new: {
-          signIn: 'Войти',
+          signIn: 'Вход',
           submit: 'Войти',
         },
       },
