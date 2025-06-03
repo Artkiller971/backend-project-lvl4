@@ -12,6 +12,7 @@ import fastifySensible from '@fastify/sensible';
 import Pug from 'pug';
 import qs from 'qs';
 import i18next from 'i18next';
+import Rollbar from 'rollbar';
 
 import addRoutes from './routes/index.js';
 import getHelpers from './helpers/helpers.js';
@@ -24,6 +25,12 @@ import en from './locales/en.js';
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
 const mode = process.env.NODE_ENV || 'development';
+
+const rollbar = new Rollbar({
+  accessToken: process.env.ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+});
 
 const setUpViews = (app) => {
   const helpers = getHelpers(app);
@@ -129,6 +136,8 @@ export default async (app, _options) => {
   setUpStaticAssets(app);
   addRoutes(app);
   addHooks(app);
+
+  rollbar.log('Rollbar is working');
 
   return app;
 };
