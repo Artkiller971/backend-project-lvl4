@@ -113,8 +113,11 @@ export default (app) => {
         const mapped = [...labels].flatMap((item) => ({ id: parseInt(item, 10) }));
         const validtask = await app.objection.models.task
           .fromJson({
-            name, description, creatorId, executorId: parseInt(executorId, 10)
-            || null, statusId: parseInt(statusId, 10),
+            name,
+            description,
+            creatorId,
+            executorId: parseInt(executorId, 10) || null,
+            statusId: parseInt(statusId, 10),
           });
         await app.objection.models.task.transaction(async (trx) => {
           await app.objection.models.task.query(trx).insertGraph([{ ...validtask, labels: mapped }], { relate: ['labels'] });
