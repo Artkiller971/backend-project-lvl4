@@ -32,6 +32,10 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
+const setUpRollbar = (app) => {
+  app.use(rollbar.errorHandler());
+};
+
 const setUpViews = (app) => {
   const helpers = getHelpers(app);
 
@@ -136,8 +140,7 @@ export default async (app, _options) => {
   setUpStaticAssets(app);
   addRoutes(app);
   addHooks(app);
-
-  rollbar.log('Rollbar is working');
+  setUpRollbar(app);
 
   return app;
 };
