@@ -11,9 +11,9 @@ html(lang="ru" data-bs-theme="dark")
     nav.navbar.navbar-expand-lg.mb-3
       .container-fluid
         a.navbar-brand(href=route('root'))= t('appName')
-        button.navbar-toggler(data-bs-toggle="collapse")
+        button.navbar-toggler(data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent")
           span.navbar-toggler-icon
-        .collapse.navbar-collapse
+        .collapse.navbar-collapse(id="navbarToggleExternalContent")
           ul.navbar-nav.justify-content-end.w-100
             li.nav-item.me-auto
               a.nav-link(href=route('users'))= t('layouts.application.users')
