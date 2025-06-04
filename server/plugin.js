@@ -40,9 +40,9 @@ const setErrorHandler = (app) => {
   app.setErrorHandler((error, req, reply) => {
     const errorMessage = reply.statusCode === 500 ? 'Internal server error' : error.message;
 
-    req.log(errorMessage);
     if (mode === 'production') {
       rollbar.log(error);
+      console.error(error);
     }
 
     req.flash('error', errorMessage);
