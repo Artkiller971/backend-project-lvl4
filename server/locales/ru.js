@@ -120,7 +120,7 @@ export default {
         delete: 'Удалить',
         new: {
           submit: 'Создать',
-          creation: '',
+          creation: 'Создание статуса',
         },
         statusesList: 'Статусы',
         createStatus: 'Создать статус',
@@ -136,7 +136,7 @@ export default {
         delete: 'Удалить',
         new: {
           submit: 'Создать',
-          creation: 'Create Label',
+          creation: 'Создание метки',
         },
         labelsList: 'Метки',
         createLabel: 'Создать метку',
