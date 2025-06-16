@@ -8,14 +8,12 @@ block content
     table.table.table-borderless.table-striped.mt-5
       thead
         tr
-          th= t('views.users.id')
           th= t('views.users.fullName')
           th= t('views.users.email')
           th= t('views.users.createdAt')
       tbody
         each user in users
           tr
-            td= user.id
             td= user.name
             td= user.email
             td= formatDate(user.createdAt)

@@ -8,13 +8,11 @@ block content
     table.table.table-borderless.table-striped.mt-5
       thead
         tr
-          th= t('views.statuses.id')
           th= t('views.statuses.name')
           th= t('views.statuses.createdAt')
       tbody
         each status in statuses
           tr
-            td= status.id
             td= status.name
             td= formatDate(status.createdAt)
             td

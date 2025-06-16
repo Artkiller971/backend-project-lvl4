@@ -19,7 +19,6 @@ block content
     table.table.table-borderless.table-striped.mt-5
       thead
         tr
-          th= t('views.tasks.id')
           th= t('views.tasks.name')
           th= t('views.tasks.status')
           th= t('views.tasks.creator')
@@ -28,7 +27,6 @@ block content
       tbody
         each task in tasks
           tr
-            td= task.id
             td
               a(href=route('showTask', { id: task.id }))= task.name
             td= task.status.name
